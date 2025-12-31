@@ -97,21 +97,21 @@ O design system está definido em `src/app/globals.css` via `@theme` (Tailwind v
 
 ## 📦 Deploy em VPS
 
-### Opção 1: PM2 + Nginx
+### Arquitetura Atual (Coolify + Traefik)
 
-#### 1. Build do projeto
+Esta aplicação roda em uma VPS com **Coolify** gerenciando um **Traefik** como reverse proxy principal.
+
+- **Traefik**: Porta 80/443 (gerenciado pelo Coolify via Docker)
+- **Aplicação**: PM2 na porta 3001 (host)
+- **Domínio**: `passagem.ordeminedita.com.br`
+
+### 1. Configurar PM2
+
+O arquivo `ecosystem.config.cjs` está configurado para rodar na **porta 3001**:
 
 ```bash
+# Build do projeto
 npm run build
-```
-
-#### 2. Configurar PM2
-
-O arquivo `ecosystem.config.cjs` já está configurado. Ajuste o `cwd` para o caminho absoluto do seu projeto.
-
-```bash
-# Instalar PM2 globalmente (se ainda não tiver)
-npm install -g pm2
 
 # Iniciar aplicação
 pm2 start ecosystem.config.cjs
@@ -121,9 +121,61 @@ pm2 save
 pm2 startup
 ```
 
-#### 3. Configurar Nginx (Reverse Proxy)
+### 2. Liberar Porta no Firewall (UFW)
 
-Crie `/etc/nginx/sites-available/ordem-inedita`:
+**⚠️ IMPORTANTE**: O firewall deve permitir a porta da aplicação para que o Docker (Traefik) possa acessá-la:
+
+```bash
+sudo ufw allow 3001/tcp
+```
+
+Sem isso, o Traefik não conseguirá rotear requisições para a aplicação, resultando em **Gateway Timeout**.
+
+### 3. Configurar Traefik (Coolify)
+
+Crie o arquivo de configuração dinâmica em `/data/coolify/proxy/dynamic/passagem.yml`:
+
+```yaml
+http:
+  routers:
+    passagem-http:
+      rule: "Host(`passagem.ordeminedita.com.br`)"
+      entryPoints:
+        - http
+      service: passagem
+      middlewares:
+        - passagem-redirect-https
+
+    passagem-https:
+      rule: "Host(`passagem.ordeminedita.com.br`)"
+      entryPoints:
+        - https
+      service: passagem
+      tls:
+        certResolver: letsencrypt
+
+  middlewares:
+    passagem-redirect-https:
+      redirectScheme:
+        scheme: https
+        permanent: true
+
+  services:
+    passagem:
+      loadBalancer:
+        servers:
+          - url: "http://host.docker.internal:3001"
+```
+
+O Traefik detecta automaticamente novos arquivos `.yml` neste diretório e recarrega a configuração.
+
+### 4. SSL Automático
+
+O Traefik obtém certificados SSL automaticamente via Let's Encrypt usando o resolver `letsencrypt` configurado pelo Coolify. Não é necessário rodar `certbot` manualmente.
+
+### Opção Alternativa: Nginx (Standalone)
+
+Se você não usa Coolify/Traefik, pode configurar Nginx diretamente:
 
 ```nginx
 server {
@@ -131,7 +183,7 @@ server {
     server_name seu-dominio.com;
 
     location / {
-        proxy_pass http://localhost:3000;
+        proxy_pass http://localhost:3001;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -139,45 +191,17 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_cache_bypass $http_upgrade;
     }
 }
 ```
 
-Ative o site:
+Ative o site e configure SSL:
 
 ```bash
 sudo ln -s /etc/nginx/sites-available/ordem-inedita /etc/nginx/sites-enabled/
-sudo nginx -t
-sudo systemctl reload nginx
-```
-
-#### 4. SSL com Let's Encrypt (opcional)
-
-```bash
-sudo apt install certbot python3-certbot-nginx
+sudo nginx -t && sudo systemctl reload nginx
 sudo certbot --nginx -d seu-dominio.com
 ```
-
-### Opção 2: PM2 + Traefik
-
-Se você usa Traefik como reverse proxy, adicione labels ao seu container ou use um arquivo de configuração:
-
-```yaml
-# docker-compose.yml (exemplo)
-version: '3.8'
-services:
-  ordem-inedita:
-    build: .
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.ordem-inedita.rule=Host(`seu-dominio.com`)"
-      - "traefik.http.routers.ordem-inedita.entrypoints=websecure"
-      - "traefik.http.routers.ordem-inedita.tls.certresolver=letsencrypt"
-      - "traefik.http.services.ordem-inedita.loadbalancer.server.port=3000"
-```
-
-Ou configure diretamente no Traefik via labels estáticos.
 
 ## 📝 Conteúdo
 

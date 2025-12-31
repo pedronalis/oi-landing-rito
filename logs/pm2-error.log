@@ -298,3 +298,15 @@
 2025-12-31 03:25:54 +00:00:   address: '::',
 2025-12-31 03:25:54 +00:00:   port: 3000
 2025-12-31 03:25:54 +00:00: }
+2025-12-31 04:48:34 +00:00: Error [InvariantError]: Invariant: The client reference manifest for route "/_not-found" does not exist. This is a bug in Next.js.
+2025-12-31 04:48:34 +00:00:     at Object.get (.next/server/chunks/ssr/[root-of-the-server]__0c1ef9cf._.js:1:14515)
+2025-12-31 04:48:34 +00:00: ⨯ Error [InvariantError]: Invariant: The client reference manifest for route "/_not-found" does not exist. This is a bug in Next.js.
+2025-12-31 04:48:34 +00:00:     at Object.get (.next/server/chunks/ssr/[root-of-the-server]__0c1ef9cf._.js:1:14515)
+2025-12-31 04:48:34 +00:00: ⨯ Error [InvariantError]: Invariant: The client reference manifest for route "/_not-found" does not exist. This is a bug in Next.js.
+2025-12-31 04:48:34 +00:00:     at Object.get (.next/server/chunks/ssr/[root-of-the-server]__0c1ef9cf._.js:1:14515)
+2025-12-31 05:07:31 +00:00: Error [InvariantError]: Invariant: The client reference manifest for route "/_not-found" does not exist. This is a bug in Next.js.
+2025-12-31 05:07:31 +00:00:     at Object.get (.next/server/chunks/ssr/[root-of-the-server]__0c1ef9cf._.js:1:14515)
+2025-12-31 05:07:31 +00:00: ⨯ Error [InvariantError]: Invariant: The client reference manifest for route "/_not-found" does not exist. This is a bug in Next.js.
+2025-12-31 05:07:31 +00:00:     at Object.get (.next/server/chunks/ssr/[root-of-the-server]__0c1ef9cf._.js:1:14515)
+2025-12-31 05:07:31 +00:00: ⨯ Error [InvariantError]: Invariant: The client reference manifest for route "/_not-found" does not exist. This is a bug in Next.js.
+2025-12-31 05:07:31 +00:00:     at Object.get (.next/server/chunks/ssr/[root-of-the-server]__0c1ef9cf._.js:1:14515)
