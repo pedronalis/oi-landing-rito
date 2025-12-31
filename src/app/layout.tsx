@@ -19,9 +19,14 @@ const ubuntu = Ubuntu({
 });
 
 export const metadata: Metadata = {
-  title: 'Rito de Passagem - Ordem Inédita',
+  title: 'Rito de Passagem - OI',
   description:
     'Transforme seu caos criativo em um ecossistema que gera lucro, identidade e paz mental.',
+  icons: {
+    icon: '/uploads/logo.webp',
+    shortcut: '/uploads/logo.webp',
+    apple: '/uploads/logo.webp',
+  },
 };
 
 export default function RootLayout({
