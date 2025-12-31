@@ -2,7 +2,7 @@ import type { LandingContent } from './types';
 
 export const landingBContent: LandingContent = {
   seo: {
-    title: 'Ordem Inédita - Uma nova forma de SER e CRIAR no Digital',
+    title: 'Rito de Passagem - OI',
     description:
       'Transforme seu caos criativo em um ecossistema que gera lucro, identidade e paz mental. Plataforma com IAs, cursos e experiências inéditas.',
   },
