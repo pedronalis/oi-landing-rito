@@ -1,26 +1,728 @@
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Ubuntu:wght@300;400;500;700&display=swap");
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================================
+   SISTEMA DE CORES - TAILWIND V4
+   ============================================ */
+
+@theme {
+  /* Brand Colors - Verde Principal (#6eff5b) */
+  --color-brand-50: #f0fdf4;
+  --color-brand-100: #dcfce7;
+  --color-brand-200: #bbf7d0;
+  --color-brand-300: #86efac;
+  --color-brand-400: #6eff5b;
+  --color-brand-500: #6eff5b;
+  /* Cor principal */
+  --color-brand-600: #5cef4a;
+  /* Hover */
+  --color-brand-700: #4dd43a;
+  --color-brand-800: #166534;
+  --color-brand-900: #145231;
+
+  /* Accent Colors - Roxo Secundário (#7a12ff) */
+  --color-accent-50: #faf5ff;
+  --color-accent-100: #f3e8ff;
+  --color-accent-200: #e9d5ff;
+  --color-accent-300: #d8b4fe;
+  --color-accent-400: #7a12ff;
+  --color-accent-500: #7a12ff;
+  /* Cor principal */
+  --color-accent-600: #6a0fe6;
+  /* Hover */
+  --color-accent-700: #5a0dcc;
+  --color-accent-800: #6b21a8;
+  --color-accent-900: #581c87;
+
+  /* Background Colors - Design System (mais profundidade) */
+  --color-dark: #1f2121;
+  /* Background principal */
+  --color-dark-50: #171717;
+  /* Cards e elementos */
+  --color-dark-100: #2a2c2c;
+  /* Hover states */
+  --color-dark-200: #2f3131;
+  /* Borders sutis */
+  --color-dark-deep: #0f0f0f;
+  /* Background mais profundo */
+
+  /* Cream Colors - Texto premium (#e8dfca base) */
+  --color-cream-50: #faf8f4;
+  --color-cream-100: #f5f1e8;
+  --color-cream-200: #ede6d8;
+  --color-cream-300: #e8dfca;   /* Base principal */
+  --color-cream-400: #d9cdae;
+  --color-cream-500: #c7b794;
+  --color-cream-600: #b5a17a;
+
+  /* Gold/Orange Color for Logo */
+  --color-gold-400: #fbbf24;
+  --color-gold-500: #f59e0b;
+  --color-gold-600: #d97706;
+
+  /* SEMANTIC ALIASES */
+  --color-bg-primary: var(--color-dark);
+  --color-bg-secondary: var(--color-dark-50);
+  --color-bg-tertiary: var(--color-dark-100);
+  --color-text-primary: #e8dfca; /* cream-300 */
+  --color-text-secondary: #d9cdae; /* cream-400 */
+  --color-text-muted: #c7b794; /* cream-500 */
+  --color-border: var(--color-dark-200);
+
+  /* Typography - Font Families */
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-body: "Ubuntu", system-ui, sans-serif;
+
+  /* Nota: Para usar essas cores, use bg-dark, bg-dark-50, etc. */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* ============================================
+   BASE STYLES - TIPOGRAFIA E ELEMENTOS BASE
+   ============================================ */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  /* Dark Mode Global */
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply text-cream-300;
+    background-color: #1f2121;
+    font-family: var(--font-body), "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "EmojiOne Color", "Android Emoji", sans-serif;
+  }
+
+  /* Typography - Premium Hierarchy */
+  h1 {
+    font-family: var(--font-display);
+    @apply text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    @apply text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    @apply text-xl md:text-2xl font-semibold;
+  }
+
+  h4 {
+    @apply text-lg md:text-xl font-semibold;
+  }
+
+  p {
+    @apply leading-relaxed text-cream-300 text-base md:text-lg;
+  }
+
+  a {
+    @apply text-brand-500 hover:text-brand-400 transition-colors;
+  }
+
+  input,
+  textarea,
+  select {
+    @apply bg-[#171717] border border-[#2f3131] rounded-lg px-3 py-2 text-cream-200 placeholder-cream-500 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent;
+  }
+
+  input:disabled,
+  textarea:disabled,
+  select:disabled {
+    @apply opacity-50 cursor-not-allowed;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ============================================
+   COMPONENTS - BOTÕES, CARDS E ELEMENTOS UI
+   ============================================ */
+
+@layer components {
+  /* Botões */
+  .btn-primary {
+    @apply bg-brand-500 hover:bg-brand-600 text-black font-medium py-2 px-4 rounded-lg transition-colors;
+  }
+
+  .btn-secondary {
+    @apply bg-accent-500 hover:bg-accent-600 text-white font-medium py-2 px-4 rounded-lg transition-colors;
+  }
+
+  .btn-outline {
+    @apply bg-transparent border-2 border-brand-500 text-brand-500 hover:bg-brand-500 hover:text-black font-medium py-2 px-4 rounded-lg transition-colors;
+  }
+
+  .btn-outline-accent {
+    @apply bg-transparent border-2 border-accent-500 text-accent-500 hover:bg-accent-500 hover:text-white font-medium py-2 px-4 rounded-lg transition-colors;
+  }
+
+  /* Cards */
+  .card {
+    @apply bg-[#171717] border border-[#2f3131] rounded-lg p-6;
+  }
+
+  .card-hover {
+    @apply bg-[#171717] border border-[#2f3131] rounded-lg p-6 hover:bg-[#1f2121] transition-colors;
+  }
+}
+
+/* ============================================
+   UTILITIES - TRANSIÇÕES E EFEITOS GLOBAIS
+   ============================================ */
+
+/* Smooth transitions para elementos interativos */
+* {
+  @apply transition-colors duration-200;
+}
+
+/* Remove default scrollbar styling for scrollable areas */
+
+/* ============================================
+   ANIMAÇÕES CUSTOMIZADAS
+   ============================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUpIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slideDownOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+
+.dropdown-slide-up {
+  animation: slideUpIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Shimmer animation for image loading */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* Floating animation para orbs de background */
+@keyframes floatSlow {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(20px, -15px);
+  }
+}
+
+@keyframes floatSlowReverse {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-15px, 20px);
+  }
+}
+
+.float-slow {
+  animation: floatSlow 20s ease-in-out infinite;
+}
+
+.float-slow-reverse {
+  animation: floatSlowReverse 25s ease-in-out infinite;
+}
+
+/* Premium pulse glow for CTAs */
+@keyframes pulseGlow {
+  0%,
+  100% {
+    filter: drop-shadow(0 4px 12px rgba(110, 255, 91, 0.4));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 2px 8px rgba(110, 255, 91, 0.3), 0 0 0 1px rgba(110, 255, 91, 0.1);
+  }
+  50% {
+    filter: drop-shadow(0 6px 20px rgba(110, 255, 91, 0.6));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15),
+      0 4px 16px rgba(110, 255, 91, 0.5), 0 0 0 2px rgba(110, 255, 91, 0.2);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* ============================================
+   BLACK HOLE ANIMATIONS
+   ============================================ */
+
+@keyframes blackhole-glow {
+  0%, 100% {
+    filter: brightness(1) drop-shadow(0 0 30px rgba(100, 255, 100, 0.3)) drop-shadow(0 0 60px rgba(150, 100, 255, 0.2));
+  }
+  50% {
+    filter: brightness(1.08) drop-shadow(0 0 50px rgba(100, 255, 100, 0.4)) drop-shadow(0 0 80px rgba(150, 100, 255, 0.3));
+  }
+}
+
+@keyframes blackhole-float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.01);
+  }
+}
+
+@keyframes particle-drift-1 {
+  0% { transform: translate(0, 0); opacity: 0.6; }
+  50% { transform: translate(15px, -10px); opacity: 0.3; }
+  100% { transform: translate(30px, -5px); opacity: 0; }
+}
+
+@keyframes particle-drift-2 {
+  0% { transform: translate(0, 0); opacity: 0.4; }
+  50% { transform: translate(-12px, 8px); opacity: 0.2; }
+  100% { transform: translate(-20px, 15px); opacity: 0; }
+}
+
+@keyframes particle-drift-3 {
+  0% { transform: translate(0, 0); opacity: 0.5; }
+  50% { transform: translate(10px, 12px); opacity: 0.25; }
+  100% { transform: translate(18px, 20px); opacity: 0; }
+}
+
+@keyframes particle-drift-4 {
+  0% { transform: translate(0, 0); opacity: 0.3; }
+  50% { transform: translate(-8px, -15px); opacity: 0.15; }
+  100% { transform: translate(-15px, -25px); opacity: 0; }
+}
+
+@keyframes particle-drift-5 {
+  0% { transform: translate(0, 0); opacity: 0.4; }
+  50% { transform: translate(5px, -8px); opacity: 0.2; }
+  100% { transform: translate(12px, -12px); opacity: 0; }
+}
+
+.animate-blackhole-glow {
+  animation: blackhole-glow 4s ease-in-out infinite;
+}
+
+.animate-blackhole-float {
+  animation: blackhole-float 6s ease-in-out infinite;
+}
+
+.animate-particle-1 {
+  animation: particle-drift-1 3s ease-in-out infinite;
+}
+
+.animate-particle-2 {
+  animation: particle-drift-2 4s ease-in-out infinite 0.5s;
+}
+
+.animate-particle-3 {
+  animation: particle-drift-3 3.5s ease-in-out infinite 1s;
+}
+
+.animate-particle-4 {
+  animation: particle-drift-4 4.5s ease-in-out infinite 1.5s;
+}
+
+.animate-particle-5 {
+  animation: particle-drift-5 3s ease-in-out infinite 2s;
+}
+
+/* Border glow animation for highlighted cards */
+@keyframes borderGlow {
+  0%,
+  100% {
+    border-color: rgba(110, 255, 91, 0.3);
+    box-shadow: 0 0 20px rgba(110, 255, 91, 0.1);
+  }
+  50% {
+    border-color: rgba(110, 255, 91, 0.6);
+    box-shadow: 0 0 30px rgba(110, 255, 91, 0.2);
+  }
+}
+
+.animate-border-glow {
+  animation: borderGlow 3s ease-in-out infinite;
+}
+
+/* Rotating gradient border for video frames and experience cards */
+@keyframes rotateBorder {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-border {
+  background: linear-gradient(
+    90deg,
+    rgba(110, 255, 91, 0.5),
+    rgba(122, 18, 255, 0.5),
+    rgba(110, 255, 91, 0.5)
+  );
+  background-size: 200% 200%;
+  animation: rotateBorder 4s ease infinite;
+}
+
+/* Premium gradient border for experience cards - Mesmas cores dos vídeos */
+@keyframes rotatePremiumBorder {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes rotatePremiumBorderHover {
+  0% {
+    background-position: 0% 50%;
+    box-shadow: 
+      0 0 16px rgba(110, 255, 91, 0.3),
+      0 0 28px rgba(110, 255, 91, 0.15);
+  }
+  50% {
+    background-position: 100% 50%;
+    box-shadow: 
+      0 0 16px rgba(122, 18, 255, 0.3),
+      0 0 28px rgba(122, 18, 255, 0.15);
+  }
+  100% {
+    background-position: 0% 50%;
+    box-shadow: 
+      0 0 16px rgba(110, 255, 91, 0.3),
+      0 0 28px rgba(110, 255, 91, 0.15);
+  }
+}
+
+.animate-premium-border {
+  background: linear-gradient(
+    90deg,
+    rgba(110, 255, 91, 0.6),
+    rgba(122, 18, 255, 0.6),
+    rgba(110, 255, 91, 0.6)
+  );
+  background-size: 200% 200%;
+  animation: rotatePremiumBorder 10s ease infinite;
+  padding: 2px;
+}
+
+.group:hover.animate-premium-border,
+.animate-premium-border:hover {
+  animation: rotatePremiumBorderHover 10s ease infinite;
+}
+
+
+/* Gradient number pulse animation */
+@keyframes numberPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(0.98); }
+}
+
+.animate-number-pulse {
+  animation: numberPulse 3s ease-in-out infinite;
+}
+
+/* Journey connector glow on card hover */
+.journey-connector-active {
+  stroke: rgba(110, 255, 91, 0.5);
+  filter: drop-shadow(0 0 6px rgba(110, 255, 91, 0.4));
+  transition: all 0.5s ease;
+}
+
+.journey-connector-line {
+  stroke-dasharray: 10;
+  animation: dash 30s linear infinite;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+
+/* Premium text shadow for experience card titles */
+.text-shadow-lg {
+  text-shadow:
+    0 2px 20px rgba(0, 0, 0, 0.8),
+    0 0 40px rgba(110, 255, 91, 0.3);
+}
+
+/* GPU acceleration utilities */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* ============================================
+   UTILITIES - GLOW EFFECTS
+   ============================================ */
+
+@layer utilities {
+  /* Premium CTA Glow - Refined & Modern */
+  .cta-glow-premium {
+    box-shadow:
+      0 0 0 1px rgba(110, 255, 91, 0.15),
+      0 4px 16px -4px rgba(110, 255, 91, 0.35),
+      0 12px 40px -8px rgba(110, 255, 91, 0.25);
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .cta-glow-premium:hover {
+    box-shadow:
+      0 0 0 1px rgba(110, 255, 91, 0.25),
+      0 8px 24px -4px rgba(110, 255, 91, 0.45),
+      0 20px 60px -12px rgba(110, 255, 91, 0.35);
+  }
+
+  .cta-glow-premium:active {
+    box-shadow:
+      0 0 0 1px rgba(110, 255, 91, 0.2),
+      0 2px 8px -2px rgba(110, 255, 91, 0.3),
+      0 8px 24px -8px rgba(110, 255, 91, 0.2);
+  }
+
+  /* Legacy glow-button for backwards compatibility */
+  .glow-button {
+    filter: drop-shadow(0 6px 16px rgba(110, 255, 91, 0.5));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15),
+      0 4px 12px rgba(110, 255, 91, 0.4), 0 0 0 1px rgba(110, 255, 91, 0.15),
+      0 0 40px rgba(110, 255, 91, 0.15);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .glow-button:hover {
+    filter: drop-shadow(0 8px 24px rgba(110, 255, 91, 0.6));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      0 6px 20px rgba(110, 255, 91, 0.5), 0 0 0 2px rgba(110, 255, 91, 0.2),
+      0 0 60px rgba(110, 255, 91, 0.2);
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  .glow-button:active {
+    transform: translateY(0) scale(0.98);
+    filter: drop-shadow(0 4px 12px rgba(110, 255, 91, 0.5));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 2px 8px rgba(110, 255, 91, 0.4), 0 0 0 1px rgba(110, 255, 91, 0.1);
+  }
+
+  .button-text-legible {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 0 4px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Radial Gradient Utility */
+  .bg-gradient-radial {
+    background: radial-gradient(ellipse at center, var(--tw-gradient-stops));
+  }
+
+  /* Premium Text Effects */
+  .text-gradient-brand {
+    background: linear-gradient(135deg, #6eff5b 0%, #4dd43a 50%, #7a12ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-subtle {
+    background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Premium Glass Effect */
+  .glass-premium {
+    backdrop-filter: blur(16px) saturate(180%);
+    background: linear-gradient(
+      135deg,
+      rgba(23, 23, 23, 0.8) 0%,
+      rgba(23, 23, 23, 0.6) 100%
+    );
+    border: 1px solid rgba(47, 49, 49, 0.5);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03),
+      0 4px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .glass-premium-hover {
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .glass-premium-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05),
+      0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(110, 255, 91, 0.1);
+  }
+
+  /* Number Badge Glow */
+  .number-glow {
+    text-shadow: 0 0 20px rgba(110, 255, 91, 0.6),
+      0 0 40px rgba(110, 255, 91, 0.3);
+  }
+
+  /* Section Separator */
+  .section-separator {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(110, 255, 91, 0.3) 50%,
+      transparent 100%
+    );
+    height: 1px;
+  }
+
+  /* Font utilities */
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-body {
+    font-family: var(--font-body);
+  }
+
+  /* Symmetric text wrapping for headlines */
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* ============================================
+   SCROLLBAR PREMIUM - Sidebar
+   ============================================ */
+
+.sidebar-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(232, 223, 202, 0.18) transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 8px 0;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(232, 223, 202, 0.1) 0%,
+    rgba(232, 223, 202, 0.2) 50%,
+    rgba(232, 223, 202, 0.1) 100%
+  );
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(232, 223, 202, 0.2) 0%,
+    rgba(232, 223, 202, 0.35) 50%,
+    rgba(232, 223, 202, 0.2) 100%
+  );
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(
+    180deg,
+    rgba(232, 223, 202, 0.25) 0%,
+    rgba(232, 223, 202, 0.4) 50%,
+    rgba(232, 223, 202, 0.25) 100%
+  );
+}
+
+/* ============================================
+   REACT-DAY-PICKER OVERRIDES
+   ============================================ */
+
+/* Override the accent colors using CSS variables - Official v9 method */
+.rdp-root {
+  --rdp-accent-color: #6eff5b !important;
+  --rdp-accent-background-color: transparent !important;
+  --rdp-today-color: #e8dfca !important;
+}
+
+/* Remove ALL backgrounds from day cells (td elements) */
+.rdp-day,
+.rdp-today,
+.rdp-selected,
+.rdp-today.rdp-selected {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Selected day button - green circle */
+.rdp-selected .rdp-day_button {
+  background-color: #6eff5b !important;
+  color: #000 !important;
+  font-weight: 600 !important;
+}
+
+/* Today (not selected) - subtle indicator */
+.rdp-today:not(.rdp-selected) .rdp-day_button {
+  color: #6eff5b !important;
+  font-weight: 700 !important;
+}
+
+/* Chevron/navigation arrows - Creme color */
+.rdp-chevron {
+  fill: #e8dfca !important;
+}
+
+/* ============================================
+   SCROLLBAR UTILITIES
+   ============================================ */
+
+/* Hide scrollbar but keep scroll functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
