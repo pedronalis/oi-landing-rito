@@ -1,6 +1,7 @@
 'use client';
 
 import { Clock, HelpCircle } from 'lucide-react';
+import dynamic from 'next/dynamic';
 
 import { landingBContent } from '@/content/landingB';
 import { CTAButton } from '@/components/ui/CTAButton';
@@ -10,19 +11,40 @@ import { VideoFrame } from '@/components/ui/VideoFrame';
 import { FAQCard } from '@/components/ui/FAQCard';
 import { Footer } from '@/components/ui/Footer';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
-import { GuaranteeSection } from './sections/GuaranteeSection';
 import { HowWeDefeatSectionB } from './sections/HowWeDefeatSectionB';
-import { TestimonialsSection } from './sections/TestimonialsSection';
-import { PricingSection } from './sections/PricingSection';
 import { useUtmSourceSuffix } from '@/hooks/useUtmSourceSuffix';
 
-// New creative layout components for Landing B
+// Above-fold components (keep static imports)
 import { SplitHero } from './sections/SplitHero';
 import { VerticalTimeline } from './sections/VerticalTimeline';
 import { TabbedArsenal } from './sections/TabbedArsenal';
 import { ComparisonSlider } from './sections/ComparisonSlider';
-import { ExperienceCarousel } from './sections/ExperienceCarousel';
-import { StorytellingManifesto } from './sections/StorytellingManifesto';
+
+// Dynamic imports for below-fold heavy components (code splitting)
+const ExperienceCarousel = dynamic(
+  () => import('./sections/ExperienceCarousel').then(mod => ({ default: mod.ExperienceCarousel })),
+  { loading: () => <div className="min-h-96 bg-dark-50/50 animate-pulse" /> }
+);
+
+const StorytellingManifesto = dynamic(
+  () => import('./sections/StorytellingManifesto').then(mod => ({ default: mod.StorytellingManifesto })),
+  { loading: () => <div className="min-h-96 bg-dark-50/50 animate-pulse" /> }
+);
+
+const PricingSection = dynamic(
+  () => import('./sections/PricingSection').then(mod => ({ default: mod.PricingSection })),
+  { loading: () => <div className="min-h-96 bg-dark-50/50 animate-pulse" /> }
+);
+
+const TestimonialsSection = dynamic(
+  () => import('./sections/TestimonialsSection').then(mod => ({ default: mod.TestimonialsSection })),
+  { loading: () => <div className="min-h-96 bg-dark-50/50 animate-pulse" /> }
+);
+
+const GuaranteeSection = dynamic(
+  () => import('./sections/GuaranteeSection').then(mod => ({ default: mod.GuaranteeSection })),
+  { loading: () => <div className="min-h-64 bg-dark-50/50 animate-pulse" /> }
+);
 
 export function LandingB() {
   const { hero, sections, pricing } = landingBContent;

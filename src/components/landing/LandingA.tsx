@@ -1,6 +1,7 @@
 'use client';
 
 import { Clock, HelpCircle, Key } from 'lucide-react';
+import dynamic from 'next/dynamic';
 
 import Image from 'next/image';
 import { landingAContent } from '@/content/landingA';
@@ -12,17 +13,37 @@ import { Prose } from '@/components/ui/Prose';
 import { FAQCard } from '@/components/ui/FAQCard';
 import { Footer } from '@/components/ui/Footer';
 import { ScrollReveal, StaggerContainer, StaggerItem } from '@/components/ui/ScrollReveal';
-import { GuaranteeSection } from './sections/GuaranteeSection';
 import { ExperienceCard } from './sections/ExperienceCard';
 import { PlatformJourney } from './sections/PlatformJourney';
 import { TreasureMapArsenal } from './sections/TreasureMapArsenal';
 import { HowWeDefeatSection } from './sections/HowWeDefeatSection';
-import { TestimonialsSection } from './sections/TestimonialsSection';
 import { PremiumIcon } from '@/components/ui/PremiumIcon';
 import { cn } from '@/lib/utils';
-import ExtraversoBlackHole from './3d/ExtraversoBlackHole';
-import { PricingSection } from './sections/PricingSection';
 import { useUtmSourceSuffix } from '@/hooks/useUtmSourceSuffix';
+
+// Dynamic imports for heavy components (code splitting)
+const ExtraversoBlackHole = dynamic(
+  () => import('./3d/ExtraversoBlackHole'),
+  { 
+    ssr: false,
+    loading: () => <div className="w-full h-64 bg-dark-50 animate-pulse rounded-lg" />
+  }
+);
+
+const PricingSection = dynamic(
+  () => import('./sections/PricingSection').then(mod => ({ default: mod.PricingSection })),
+  { loading: () => <div className="min-h-96 bg-dark-50/50 animate-pulse" /> }
+);
+
+const TestimonialsSection = dynamic(
+  () => import('./sections/TestimonialsSection').then(mod => ({ default: mod.TestimonialsSection })),
+  { loading: () => <div className="min-h-96 bg-dark-50/50 animate-pulse" /> }
+);
+
+const GuaranteeSection = dynamic(
+  () => import('./sections/GuaranteeSection').then(mod => ({ default: mod.GuaranteeSection })),
+  { loading: () => <div className="min-h-64 bg-dark-50/50 animate-pulse" /> }
+);
 
 export function LandingA() {
   const { hero, sections, pricing } = landingAContent;
