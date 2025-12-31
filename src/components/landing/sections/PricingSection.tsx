@@ -40,8 +40,8 @@ export function PricingSection({ title, description, pricing }: PricingSectionPr
                   className={cn(
                     'rounded-2xl p-8 flex flex-col h-full',
                     'bg-[#1a1a1a] border',
-                    isHighlighted 
-                      ? 'border-brand-500/50' 
+                    isHighlighted
+                      ? 'border-brand-500/50'
                       : 'border-[#2a2a2a]',
                     isHighlighted && 'shadow-[0_0_60px_-15px_rgba(110,255,91,0.2)]'
                   )}
@@ -112,17 +112,17 @@ export function PricingSection({ title, description, pricing }: PricingSectionPr
                         {plan.priceNote}
                       </p>
                     )}
-                    
+
                     {/* Preço com período ao lado */}
                     {(() => {
                       // Parse: "R$ 99,90 / mês" → valor="R$ 99,90", periodo="mês"
                       const parts = plan.price.split(' / ');
                       // Remove R$ para separar simbolo
-                      const fullValue = parts[0]; 
+                      const fullValue = parts[0];
                       const numericValue = fullValue.replace('R$', '').trim();
                       const hasSymbol = fullValue.includes('R$');
-                      const periodo = parts[1] || ''; 
-                      
+                      const periodo = parts[1] || '';
+
                       return (
                         <div className="flex flex-col items-center justify-center mb-2">
                           <div className="flex items-baseline gap-1.5 md:gap-1">
@@ -154,7 +154,7 @@ export function PricingSection({ title, description, pricing }: PricingSectionPr
                         </div>
                       );
                     })()}
-                    
+
                     {/* Texto complementar abaixo/subnote */}
                     {plan.priceSubnote && (
                       <p className="text-cream-400 md:text-cream-500 text-xs md:text-[10px] text-center mb-6 md:mb-5 tracking-wide px-4 text-balance">
@@ -170,7 +170,7 @@ export function PricingSection({ title, description, pricing }: PricingSectionPr
                       className={cn(
                         'relative block w-full py-4 rounded-xl text-center font-bold text-base md:text-sm uppercase tracking-wide transition-all duration-200 overflow-hidden',
                         isHighlighted
-                          ? 'bg-brand-500/20 backdrop-blur-md border border-brand-400/40 text-brand-400 hover:bg-brand-500/30 hover:border-brand-400/60 hover:text-brand-300 shadow-lg shadow-brand-500/10 before:absolute before:inset-0 before:bg-gradient-to-b before:from-white/10 before:to-transparent before:rounded-xl'
+                          ? 'bg-brand-500/20 backdrop-blur-md border border-brand-400/40 text-brand-400 hover:bg-brand-500/30 hover:border-brand-400/60 hover:text-brand-300 shadow-lg shadow-brand-500/10 before:absolute before:inset-0 before:bg-gradient-to-b before:from-white/10 before:to-transparent before:rounded-xl before:pointer-events-none'
                           : 'bg-white/5 backdrop-blur-md border border-white/20 text-cream-200 hover:bg-white/10 hover:border-white/30'
                       )}
                       style={{ fontFamily: 'Ubuntu, sans-serif' }}
