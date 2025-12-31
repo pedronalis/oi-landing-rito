@@ -227,10 +227,6 @@ Testes atuais:
 - Animações otimizadas com framer-motion
 - Lazy loading de componentes quando necessário
 
-## 📄 Licença
-
-Projeto privado - Ordem Inédita
-
 ---
 
 **Desenvolvido com ❤️ para Ordem Inédita**
