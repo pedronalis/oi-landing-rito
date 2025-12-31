@@ -375,9 +375,14 @@ export function TestimonialsSection({ title }: TestimonialsSectionProps) {
     <>
       <section ref={sectionRef} className="relative z-10 py-14 sm:py-16 md:py-28 lg:py-32 px-5 sm:px-6">
         <div className="max-w-7xl mx-auto">
-          {/* Título da Seção */}
+          {/* Título da Seção - Responsive line break */}
           <ScrollReveal withScale>
-            <h2 className="text-center mb-12 md:mb-16">{title}</h2>
+            {/* Mobile title */}
+            <h2 className="text-center mb-12 md:mb-16 md:hidden">
+              Veja o que falam<br />da nossa loucura:
+            </h2>
+            {/* Desktop title */}
+            <h2 className="text-center mb-12 md:mb-16 hidden md:block">{title}</h2>
           </ScrollReveal>
 
           {/* Masonry Layout Unificado Responsivo 
