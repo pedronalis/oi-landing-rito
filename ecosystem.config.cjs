@@ -14,7 +14,6 @@ module.exports = {
       name: 'ordem-inedita-landing',
       script: 'npm',
       args: 'start',
-      cwd: '/home/pedro/Documentos/Projects/Rito de Passagem/ordem-inedita-landing',
       instances: 1,
       exec_mode: 'fork',
       env: {
