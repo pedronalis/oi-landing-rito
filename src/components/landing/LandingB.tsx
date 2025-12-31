@@ -12,7 +12,6 @@ import { FAQCard } from '@/components/ui/FAQCard';
 import { Footer } from '@/components/ui/Footer';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { HowWeDefeatSectionB } from './sections/HowWeDefeatSectionB';
-import { useUtmSourceSuffix } from '@/hooks/useUtmSourceSuffix';
 
 // Above-fold components (keep static imports)
 import { SplitHero } from './sections/SplitHero';
@@ -49,9 +48,6 @@ const GuaranteeSection = dynamic(
 export function LandingB() {
   const { hero, sections, pricing } = landingBContent;
   
-  // Appends 'B' to utm_source (e.g., facebook -> facebookB)
-  useUtmSourceSuffix('B');
-
   // Função para scroll suave até a seção de pricing
   const scrollToPricing = () => {
     const pricingSection = document.getElementById('pricing-section');

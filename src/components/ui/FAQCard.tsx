@@ -79,7 +79,7 @@ export function FAQCard({
           className={cn(
             'text-base sm:text-lg md:text-2xl lg:text-3xl font-semibold mb-3 sm:mb-4 md:mb-6',
             'leading-tight',
-            'flex items-start gap-3 sm:gap-4 md:gap-5',
+            'flex items-center gap-3 sm:gap-4 md:gap-5',
             isHighlight ? 'text-brand-400' : 'text-cream-200'
           )}
         >

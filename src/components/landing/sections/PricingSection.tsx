@@ -3,7 +3,7 @@
 import { cn } from '@/lib/utils';
 import type { Pricing } from '@/content/types';
 import Image from 'next/image';
-import Link from 'next/link';
+
 
 interface PricingSectionProps {
   title: string;
@@ -12,6 +12,7 @@ interface PricingSectionProps {
 }
 
 export function PricingSection({ title, description, pricing }: PricingSectionProps) {
+
   return (
     <section className="relative py-16 sm:py-20 md:py-24 px-5 sm:px-6">
       <div className="max-w-6xl mx-auto">
@@ -162,8 +163,8 @@ export function PricingSection({ title, description, pricing }: PricingSectionPr
                       </p>
                     )}
 
-                    {/* CTA Button */}
-                    <Link
+                    {/* CTA Button - Link direto para checkout com UTM já embutido */}
+                    <a
                       href={plan.checkoutUrl || '#'}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -176,7 +177,7 @@ export function PricingSection({ title, description, pricing }: PricingSectionPr
                       style={{ fontFamily: 'Ubuntu, sans-serif' }}
                     >
                       <span className="relative z-10">{plan.ctaLabel}</span>
-                    </Link>
+                    </a>
                   </div>
                 </div>
               </div>

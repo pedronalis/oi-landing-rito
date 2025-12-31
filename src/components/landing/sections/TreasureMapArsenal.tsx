@@ -476,28 +476,17 @@ export function TreasureMapArsenal({
                 </motion.div>
               </div>
 
-              {/* Text content with optimized line breaks - diagramação simétrica */}
+              {/* Text content - texto corrido para quebra automática */}
               <div className="space-y-6 text-center px-2 md:px-4">
-                {/* First paragraph - quebra simétrica */}
+                {/* First paragraph */}
                 <p className="text-cream-200 text-base md:text-lg leading-relaxed font-medium">
-                  Tudo engenhado para você criar um negócio
-                  <br className="md:hidden" />
-                  {' '}digital inédito enquanto o resto continua
-                  <br className="md:hidden" />
-                  {' '}preso no &quot;mais do mesmo&quot;.
+                  Tudo engenhado para você criar um negócio digital inédito enquanto o resto continua preso no &quot;mais do mesmo&quot;.
                 </p>
 
-                {/* Second paragraph - quebra simétrica */}
+                {/* Second paragraph */}
                 <p className="text-cream-200 text-base md:text-lg leading-relaxed font-medium">
-                  Vai vender tanto, mas <span className="font-bold text-gold-400">TANTO</span>,
-                  <br className="md:hidden" />
-                  {' '}que até você vai começar a duvidar dos
-                  <br className="md:hidden" />
-                  {' '}próprios números.
-                  <br className="md:hidden" />
-                  <span className="block md:inline mt-2 md:mt-0 italic text-cream-300">
-                    {' '}What the fuck?
-                  </span>
+                  Vai vender tanto, mas <span className="font-bold text-gold-400">TANTO</span>, que até você vai começar a duvidar dos próprios números.{' '}
+                  <span className="italic text-cream-300">What the fuck?</span>
                 </p>
               </div>
 

@@ -19,7 +19,6 @@ import { TreasureMapArsenal } from './sections/TreasureMapArsenal';
 import { HowWeDefeatSection } from './sections/HowWeDefeatSection';
 import { PremiumIcon } from '@/components/ui/PremiumIcon';
 import { cn } from '@/lib/utils';
-import { useUtmSourceSuffix } from '@/hooks/useUtmSourceSuffix';
 
 // Dynamic imports for heavy components (code splitting)
 const ExtraversoBlackHole = dynamic(
@@ -48,9 +47,6 @@ const GuaranteeSection = dynamic(
 export function LandingA() {
   const { hero, sections, pricing } = landingAContent;
   
-  // Appends 'A' to utm_source (e.g., facebook -> facebookA)
-  useUtmSourceSuffix('A');
-
   // Função para scroll suave até a seção de pricing
   const scrollToPricing = () => {
     const pricingSection = document.getElementById('pricing-section');
