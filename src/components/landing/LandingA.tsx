@@ -9,6 +9,7 @@ import { CTAButton } from '@/components/ui/CTAButton';
 import { CTAHintBadges } from '@/components/ui/CTAHint';
 import { GradientOrbs } from '@/components/ui/GradientOrbs';
 import { VideoFrame } from '@/components/ui/VideoFrame';
+import { VimeoEmbed } from '@/components/ui/VimeoEmbed';
 import { Prose } from '@/components/ui/Prose';
 import { FAQCard } from '@/components/ui/FAQCard';
 import { Footer } from '@/components/ui/Footer';
@@ -23,7 +24,7 @@ import { cn } from '@/lib/utils';
 // Dynamic imports for heavy components (code splitting)
 const ExtraversoBlackHole = dynamic(
   () => import('./3d/ExtraversoBlackHole'),
-  { 
+  {
     ssr: false,
     loading: () => <div className="w-full h-64 bg-dark-50 animate-pulse rounded-lg" />
   }
@@ -46,7 +47,7 @@ const GuaranteeSection = dynamic(
 
 export function LandingA() {
   const { hero, sections, pricing } = landingAContent;
-  
+
   // Função para scroll suave até a seção de pricing
   const scrollToPricing = () => {
     const pricingSection = document.getElementById('pricing-section');
@@ -100,9 +101,9 @@ export function LandingA() {
               </p>
             </StaggerItem>
 
-            {/* Video Frame */}
+            {/* Video - Vimeo Embed */}
             <StaggerItem className="pt-4">
-              <VideoFrame label={hero.heroVideoLabel} />
+              <VimeoEmbed videoId="1152211678" title="ordem-pv1" />
             </StaggerItem>
 
             {/* CTA */}
@@ -182,7 +183,7 @@ export function LandingA() {
                     );
                   })}
                 </h2>
-                
+
                 {section.subtitle && (
                   <p className="text-center text-[#b388ff] text-sm md:text-base font-medium tracking-wide mb-10">
                     {section.subtitle}
@@ -191,7 +192,7 @@ export function LandingA() {
               </ScrollReveal>
 
               <ScrollReveal delay={0.2}>
-                <VideoFrame label={section.videoLabel} className="mb-10" />
+                <VimeoEmbed videoId="1152211813" title="ordem-pv2" className="mb-10" />
               </ScrollReveal>
 
               <ScrollReveal delay={0.3}>
@@ -271,7 +272,7 @@ export function LandingA() {
                   >
                     {/* Subtle red glow accent in corner */}
                     <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/5 rounded-full blur-3xl pointer-events-none" />
-                    
+
                     <h3 className="relative z-10 text-xl md:text-2xl font-bold mb-8 flex items-center gap-3 text-cream-300">
                       <span className="relative flex items-center justify-center">
                         <span className="w-3 h-3 rounded-full bg-red-500" />
@@ -279,7 +280,7 @@ export function LandingA() {
                       </span>
                       <span>{section.without.title.replace('🔴 ', '')}</span>
                     </h3>
-                    
+
                     <StaggerContainer staggerDelay={0.1} className="relative z-10">
                       {section.without.items.map((item, index) => (
                         <StaggerItem key={index}>
@@ -324,7 +325,7 @@ export function LandingA() {
                       {/* Glow effects */}
                       <div className="absolute top-0 left-0 w-40 h-40 bg-brand-400/8 rounded-full blur-3xl pointer-events-none" />
                       <div className="absolute bottom-0 right-0 w-32 h-32 bg-brand-500/5 rounded-full blur-2xl pointer-events-none" />
-                      
+
                       {/* Premium badge */}
                       <div className="absolute -top-3 right-6 px-4 py-1.5 rounded-full bg-[#051a0d]/85 border border-brand-400/40 backdrop-blur-md">
                         <span className="text-xs md:text-sm font-bold text-brand-400 tracking-wide uppercase">VOCÊ SE TORNA INÉDITO!</span>
@@ -337,7 +338,7 @@ export function LandingA() {
                         </span>
                         <span>{section.with.title.replace('🟢 ', '')}</span>
                       </h3>
-                      
+
                       <StaggerContainer staggerDelay={0.12} className="relative z-10">
                         {section.with.items.map((item, index) => (
                           <StaggerItem key={index}>
@@ -491,7 +492,7 @@ export function LandingA() {
                       {section.market.map((item, index) => (
                         <li key={index} className="text-cream-400/90 flex items-start gap-4 text-base md:text-lg group">
                           {/* Premium emoji container with glassmorphism */}
-                          <span 
+                          <span
                             className={cn(
                               'shrink-0 w-8 h-8 flex items-center justify-center rounded-lg',
                               'bg-linear-to-br from-cream-500/10 to-transparent',
@@ -537,7 +538,7 @@ export function LandingA() {
                       {/* Glow effects */}
                       <div className="absolute top-0 left-0 w-40 h-40 bg-brand-400/8 rounded-full blur-3xl pointer-events-none" />
                       <div className="absolute bottom-0 right-0 w-32 h-32 bg-brand-500/5 rounded-full blur-2xl pointer-events-none" />
-                      
+
                       <h3 className="relative z-10 text-lg md:text-xl font-semibold mb-6 text-brand-400 flex items-center gap-2">
                         <span>A Ordem Inédita sussurra:</span>
                       </h3>
@@ -545,7 +546,7 @@ export function LandingA() {
                         {section.ordem.map((item, index) => (
                           <li key={index} className="text-cream-300 flex items-start gap-4 text-base md:text-lg group">
                             {/* Premium emoji container with brand glow */}
-                            <span 
+                            <span
                               className={cn(
                                 'shrink-0 w-8 h-8 flex items-center justify-center rounded-lg',
                                 'bg-linear-to-br from-brand-500/20 to-brand-400/5',
@@ -588,7 +589,7 @@ export function LandingA() {
                     >
                       {/* Subtle glow behind */}
                       <div className="absolute inset-0 bg-linear-to-r from-brand-400/5 via-transparent to-accent-400/5 pointer-events-none" />
-                      
+
                       {/* Key icon */}
                       <div
                         className={cn(
@@ -600,7 +601,7 @@ export function LandingA() {
                       >
                         <Key className="w-7 h-7 text-brand-400" strokeWidth={1.5} />
                       </div>
-                      
+
                       {/* Quote text */}
                       <p className="relative z-10 text-lg sm:text-xl md:text-2xl text-center font-medium leading-relaxed">
                         <span className="text-transparent bg-clip-text bg-linear-to-r from-brand-400 via-cream-200 to-brand-400">
@@ -752,7 +753,7 @@ export function LandingA() {
                         <CTAHintBadges items={['Multiplicar ROI', 'Ganhar Tempo', 'Saúde Mental']} />
 
                         {finalCtaSection.note && (
-                          <p 
+                          <p
                             className="text-sm md:text-base lg:text-lg text-cream-500 italic pt-2 md:pt-4 text-center max-w-2xl leading-relaxed mx-auto"
                             style={{ fontFamily: 'var(--font-body), "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif' }}
                           >

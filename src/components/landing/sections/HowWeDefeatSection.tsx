@@ -2,7 +2,7 @@
 
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { VideoFrame } from '@/components/ui/VideoFrame';
+import { VimeoEmbed } from '@/components/ui/VimeoEmbed';
 import { Prose } from '@/components/ui/Prose';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { CTAButton } from '@/components/ui/CTAButton';
@@ -102,9 +102,9 @@ export function HowWeDefeatSection({
             animate={
               isInView
                 ? {
-                    opacity: 1,
-                    scale: 1,
-                  }
+                  opacity: 1,
+                  scale: 1,
+                }
                 : {}
             }
             transition={{
@@ -119,9 +119,9 @@ export function HowWeDefeatSection({
               animate={
                 isInView
                   ? {
-                      scale: [1, 1.15, 1],
-                      opacity: [0.3, 0.5, 0.3],
-                    }
+                    scale: [1, 1.15, 1],
+                    opacity: [0.3, 0.5, 0.3],
+                  }
                   : {}
               }
               transition={{
@@ -201,9 +201,9 @@ export function HowWeDefeatSection({
                 animate={
                   isInView
                     ? {
-                        pathLength: 1,
-                        opacity: 1,
-                      }
+                      pathLength: 1,
+                      opacity: 1,
+                    }
                     : {}
                 }
                 transition={{
@@ -232,7 +232,7 @@ export function HowWeDefeatSection({
               const radius = 50;
               const duration = 8 + i * 1.5;
               const direction = i % 2 === 0 ? 1 : -1;
-              
+
               return (
                 <motion.div
                   key={i}
@@ -246,10 +246,10 @@ export function HowWeDefeatSection({
                   animate={
                     isInView
                       ? {
-                          rotate: initialAngle + (direction === 1 ? 360 : -360),
-                          opacity: [0.6, 0.9, 0.6],
-                          scale: [0.8, 1.1, 0.8],
-                        }
+                        rotate: initialAngle + (direction === 1 ? 360 : -360),
+                        opacity: [0.6, 0.9, 0.6],
+                        scale: [0.8, 1.1, 0.8],
+                      }
                       : {}
                   }
                   transition={{
@@ -290,7 +290,7 @@ export function HowWeDefeatSection({
         </ScrollReveal>
 
         <ScrollReveal delay={0.2}>
-          <VideoFrame label={videoLabel} className="mb-10" />
+          <VimeoEmbed videoId="1152211534" title="ordem-pv3" className="mb-10" />
         </ScrollReveal>
 
         <ScrollReveal delay={0.3}>

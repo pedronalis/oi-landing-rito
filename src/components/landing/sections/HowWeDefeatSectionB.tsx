@@ -3,7 +3,7 @@
 import { Brain } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { VideoFrame } from '@/components/ui/VideoFrame';
+import { VimeoEmbed } from '@/components/ui/VimeoEmbed';
 import { Prose } from '@/components/ui/Prose';
 import { CTAButton } from '@/components/ui/CTAButton';
 import { CTAHintBadges } from '@/components/ui/CTAHint';
@@ -41,7 +41,7 @@ export function HowWeDefeatSectionB({
           transition={{ duration: shouldReduceMotion ? 0.2 : 0.6 }}
         >
           {/* Icon container - clean glassmorphism with visible glow */}
-          <div 
+          <div
             className="relative w-24 h-24 md:w-32 md:h-32 rounded-2xl"
             style={{
               background: 'rgba(139, 92, 246, 0.18)',
@@ -57,8 +57,8 @@ export function HowWeDefeatSectionB({
           >
             {/* Icon - light violet */}
             <div className="relative w-full h-full flex items-center justify-center">
-              <Brain 
-                className="w-12 h-12 md:w-16 md:h-16 text-violet-300" 
+              <Brain
+                className="w-12 h-12 md:w-16 md:h-16 text-violet-300"
                 strokeWidth={1.5}
               />
             </div>
@@ -83,7 +83,7 @@ export function HowWeDefeatSectionB({
           viewport={{ once: true }}
           transition={{ duration: shouldReduceMotion ? 0.2 : 0.5, delay: 0.2 }}
         >
-          <VideoFrame label={videoLabel} className="mb-10" />
+          <VimeoEmbed videoId="1152211534" title="ordem-pv3" className="mb-10" />
         </motion.div>
 
         {/* CTA */}

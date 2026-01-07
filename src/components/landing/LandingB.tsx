@@ -7,7 +7,7 @@ import { landingBContent } from '@/content/landingB';
 import { CTAButton } from '@/components/ui/CTAButton';
 import { CTAHintBadges } from '@/components/ui/CTAHint';
 import { GradientOrbs } from '@/components/ui/GradientOrbs';
-import { VideoFrame } from '@/components/ui/VideoFrame';
+import { VimeoEmbed } from '@/components/ui/VimeoEmbed';
 import { FAQCard } from '@/components/ui/FAQCard';
 import { Footer } from '@/components/ui/Footer';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
@@ -47,7 +47,7 @@ const GuaranteeSection = dynamic(
 
 export function LandingB() {
   const { hero, sections, pricing } = landingBContent;
-  
+
   // Função para scroll suave até a seção de pricing
   const scrollToPricing = () => {
     const pricingSection = document.getElementById('pricing-section');
@@ -138,7 +138,7 @@ export function LandingB() {
                     );
                   })}
                 </h2>
-                
+
                 {section.subtitle && (
                   <p className="text-center text-[#b388ff] text-sm md:text-base font-medium tracking-wide mb-10">
                     {section.subtitle}
@@ -147,7 +147,7 @@ export function LandingB() {
               </ScrollReveal>
 
               <ScrollReveal delay={0.2}>
-                <VideoFrame label={section.videoLabel} className="mb-10" />
+                <VimeoEmbed videoId="1152211813" title="ordem-pv2" className="mb-10" />
               </ScrollReveal>
 
               <ScrollReveal delay={0.3}>
@@ -401,7 +401,7 @@ export function LandingB() {
                         <CTAHintBadges items={['Multiplicar ROI', 'Ganhar Tempo', 'Saúde Mental']} />
 
                         {finalCtaSection.note && (
-                          <p 
+                          <p
                             className="text-sm md:text-base lg:text-lg text-cream-500 italic pt-2 md:pt-4 text-center max-w-2xl leading-relaxed mx-auto"
                             style={{ fontFamily: 'var(--font-body), "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif' }}
                           >

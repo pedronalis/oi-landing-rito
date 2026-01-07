@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
-import { VideoFrame } from '@/components/ui/VideoFrame';
+import { VimeoEmbed } from '@/components/ui/VimeoEmbed';
 import { CTAButton } from '@/components/ui/CTAButton';
 import { CTAHintBadges } from '@/components/ui/CTAHint';
 
@@ -98,7 +98,7 @@ export function SplitHero({
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: shouldReduceMotion ? 0.2 : 0.7, delay: 0.3 }}
           >
-            <VideoFrame label={videoLabel} />
+            <VimeoEmbed videoId="1152211678" title="ordem-pv1" />
           </motion.div>
         </div>
       </div>
