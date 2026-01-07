@@ -3,6 +3,7 @@
 import { cn } from '@/lib/utils';
 import type { Pricing } from '@/content/types';
 import Image from 'next/image';
+import { useAdUtmParams } from '@/hooks/useAdUtmParams';
 
 
 interface PricingSectionProps {
@@ -12,6 +13,7 @@ interface PricingSectionProps {
 }
 
 export function PricingSection({ title, description, pricing }: PricingSectionProps) {
+  const { appendUtmsToUrl } = useAdUtmParams();
 
   return (
     <section className="relative py-16 sm:py-20 md:py-24 px-5 sm:px-6">
@@ -163,9 +165,9 @@ export function PricingSection({ title, description, pricing }: PricingSectionPr
                       </p>
                     )}
 
-                    {/* CTA Button - Link direto para checkout com UTM já embutido */}
+                    {/* CTA Button - Link direto para checkout com UTMs concatenados */}
                     <a
-                      href={plan.checkoutUrl || '#'}
+                      href={appendUtmsToUrl(plan.checkoutUrl || '#')}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={cn(
