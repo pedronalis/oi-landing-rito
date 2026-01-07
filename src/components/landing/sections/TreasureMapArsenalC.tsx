@@ -369,6 +369,7 @@ export function TreasureMapArsenalC({ title, description, items, note }: Treasur
                                 {/* Segundo parágrafo - MAIS MAIOR */}
                                 <p className="text-cream-200 text-xl md:text-2xl leading-relaxed font-medium pb-2">
                                     Vai vender tanto, mas <span className="font-bold text-gold-400">TANTO</span>, que até você vai começar a duvidar dos próprios números.{' '}
+                                    <br className="md:hidden" />
                                     <span className="italic text-cream-300">What the fuck?</span>
                                 </p>
                             </div>

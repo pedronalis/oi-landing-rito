@@ -220,7 +220,15 @@ export function HowWeDefeatSectionC({
                     <h2 className="mb-4 text-center md:text-left text-2xl sm:text-3xl md:text-4xl lg:text-5xl">{title}</h2>
                     {/* Description - MAIOR (de ~12 para ~18-20) */}
                     <p className="text-lg md:text-xl text-cream-400 mb-10 text-center md:text-left leading-relaxed">
-                        {description}
+                        {description === 'Porque quem ganha dinheiro surtando… continua sendo surtado.' ? (
+                            <>
+                                Porque quem ganha dinheiro surtando…
+                                <br className="md:hidden" />
+                                continua sendo surtado.
+                            </>
+                        ) : (
+                            description
+                        )}
                     </p>
                 </ScrollReveal>
 

@@ -184,11 +184,10 @@ export function PlatformJourneyC({ title, description, features }: PlatformJourn
                                         só (mas com saúde mental)
                                     </span>
                                     <span className="md:hidden">
-                                        É uma plataforma insana com
-                                        {' '}inteligência, recursos incomuns
-                                        {' '}e um leve grau de loucura —
-                                        {' '}Que te transforma num exército de
-                                        {' '}1 pessoa só (mas com saúde mental)
+                                        É uma plataforma insana com inteligência,<br />
+                                        recursos incomuns e um leve grau de<br />
+                                        loucura — Que te transforma num exército<br />
+                                        de 1 pessoa só (mas com saúde mental)
                                     </span>
                                 </>
                             )

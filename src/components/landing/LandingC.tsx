@@ -73,13 +73,13 @@ export function LandingC() {
                 </div>
             </nav>
 
-            {/* Hero Section - Landing C: título menor, headline maior e quase branca */}
+            {/* Hero Section - Landing C */}
             <section className="relative z-10 pt-2 pb-6 md:pt-4 md:pb-12 lg:pt-6 lg:pb-20 px-5 sm:px-6">
                 <div className="max-w-5xl mx-auto text-center">
                     <StaggerContainer staggerDelay={0.15} className="space-y-8">
-                        {/* Main Title - MENOR */}
+                        {/* Main Title - IGUAL à Landing A */}
                         <StaggerItem>
-                            <h1 className="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-extrabold tracking-tight text-cream-200 leading-tight">
+                            <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-cream-200 leading-tight">
                                 Uma nova forma de{' '}
                                 <span className="text-transparent bg-clip-text bg-linear-to-r from-brand-400 to-brand-300">SER</span>
                                 <br className="md:hidden" />
@@ -89,9 +89,10 @@ export function LandingC() {
                             </h1>
                         </StaggerItem>
 
-                        {/* Subtitle - MAIOR e QUASE BRANCA */}
+                        {/* Subtitle - MESMA FONTE da headline (display), maior */}
                         <StaggerItem>
-                            <p className="text-lg md:text-xl lg:text-2xl text-cream-100 max-w-2xl mx-auto leading-relaxed font-medium">
+                            {/* Ajuste o valor dentro de text-[...] para mudar o tamanho no mobile */}
+                            <p className="font-display text-2xl sm:text[2.5rem] md:text-[2.5rem] lg:text-[2.4rem] text-cream-200 max-w-[28rem] sm:max-w-[59rem] mx-auto font-bold tracking-tight leading-tight">
                                 {hero.subtitle}
                             </p>
                         </StaggerItem>
