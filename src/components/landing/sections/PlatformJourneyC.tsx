@@ -183,11 +183,11 @@ export function PlatformJourneyC({ title, description, features }: PlatformJourn
                                         — Que te transforma num exército de 1 pessoa<br />
                                         só (mas com saúde mental)
                                     </span>
-                                    <span className="md:hidden whitespace-nowrap block overflow-x-visible">
-                                        É uma plataforma insana com<br />
-                                        inteligência, recursos incomuns e<br />
-                                        um leve grau de loucura — Que<br />
-                                        te transforma num exército de 1<br />
+                                    <span className="md:hidden">
+                                        É uma plataforma insana com
+                                        inteligência, recursos incomuns e
+                                        um leve grau de loucura — Que
+                                        te transforma num exército de 1
                                         pessoa só (mas com saúde mental)
                                     </span>
                                 </>
