@@ -748,3 +748,23 @@
 2026-01-05 20:23:02 +00:00: Error: Failed to find Server Action "x". This request might be from an older or newer deployment.
 2026-01-05 20:23:02 +00:00: Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
 2026-01-05 20:23:02 +00:00:     at ignore-listed frames
+2026-01-07 18:36:42 +00:00: Error: Could not find a production build in the '/home/deploy/projetos/oi-landing-rito/.next' directory. Try building your app with 'next build' before starting the production server. https://nextjs.org/docs/messages/production-start-no-build-id
+2026-01-07 18:36:42 +00:00:     at ignore-listed frames
+2026-01-07 18:36:44 +00:00: Error: Could not find a production build in the '.next' directory. Try building your app with 'next build' before starting the production server. https://nextjs.org/docs/messages/production-start-no-build-id
+2026-01-07 18:36:44 +00:00:     at ignore-listed frames
+2026-01-07 18:36:45 +00:00: Error: Could not find a production build in the '.next' directory. Try building your app with 'next build' before starting the production server. https://nextjs.org/docs/messages/production-start-no-build-id
+2026-01-07 18:36:45 +00:00:     at ignore-listed frames
+2026-01-07 18:36:47 +00:00: Error: Could not find a production build in the '.next' directory. Try building your app with 'next build' before starting the production server. https://nextjs.org/docs/messages/production-start-no-build-id
+2026-01-07 18:36:47 +00:00:     at ignore-listed frames
+2026-01-07 18:36:51 +00:00: Error: Could not find a production build in the '.next' directory. Try building your app with 'next build' before starting the production server. https://nextjs.org/docs/messages/production-start-no-build-id
+2026-01-07 18:36:51 +00:00:     at ignore-listed frames
+2026-01-07 18:36:55 +00:00: Error: Could not find a production build in the '.next' directory. Try building your app with 'next build' before starting the production server. https://nextjs.org/docs/messages/production-start-no-build-id
+2026-01-07 18:36:55 +00:00:     at ignore-listed frames
+2026-01-07 18:36:57 +00:00: Error: Could not find a production build in the '.next' directory. Try building your app with 'next build' before starting the production server. https://nextjs.org/docs/messages/production-start-no-build-id
+2026-01-07 18:36:57 +00:00:     at ignore-listed frames
+2026-01-07 18:36:59 +00:00: Error: Could not find a production build in the '.next' directory. Try building your app with 'next build' before starting the production server. https://nextjs.org/docs/messages/production-start-no-build-id
+2026-01-07 18:36:59 +00:00:     at ignore-listed frames
+2026-01-07 18:37:02 +00:00: Error: Could not find a production build in the '.next' directory. Try building your app with 'next build' before starting the production server. https://nextjs.org/docs/messages/production-start-no-build-id
+2026-01-07 18:37:02 +00:00:     at ignore-listed frames
+2026-01-07 18:37:04 +00:00: Error: Could not find a production build in the '.next' directory. Try building your app with 'next build' before starting the production server. https://nextjs.org/docs/messages/production-start-no-build-id
+2026-01-07 18:37:04 +00:00:     at ignore-listed frames

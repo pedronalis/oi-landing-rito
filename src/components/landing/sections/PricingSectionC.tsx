@@ -27,9 +27,11 @@ export function PricingSectionC({ title, description, pricing }: PricingSectionC
                         </span>
                     </h2>
                     {description && (
-                        <p className="text-cream-400 text-base md:text-lg italic text-center md:text-right md:max-w-[520px] md:mx-auto md:mr-[calc(50%-260px)] mt-2">
-                            {description}
-                        </p>
+                        <div className="flex justify-center mt-2 ml-12">
+                            <p className="text-cream-400 text-base md:text-lg italic text-right" style={{ width: 'fit-content' }}>
+                                {description}
+                            </p>
+                        </div>
                     )}
                 </div>
 
