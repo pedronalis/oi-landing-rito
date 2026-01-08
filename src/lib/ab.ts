@@ -19,20 +19,18 @@ export function generateRandom(): number {
 /**
  * Escolhe uma variante baseado em um número aleatório (0-1)
  * Split atual:
- * A: 33.33%
- * B: 33.33%
- * C: 33.34%
+ * B: 50%
+ * C: 50%
+ * (A removida do split)
  * @param random - Número entre 0 e 1
- * @returns Variante 'a', 'b' ou 'c'
+ * @returns Variante 'b' ou 'c'
  */
 export function pickVariant(random: number): Variant {
   if (random < 0 || random >= 1) {
     throw new Error('random deve estar entre 0 (inclusive) e 1 (exclusive)');
   }
 
-  if (random < 0.3333) return 'a';
-  if (random < 0.6666) return 'b';
-  return 'c';
+  return random < 0.5 ? 'b' : 'c';
 }
 
 /**
