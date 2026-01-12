@@ -3,7 +3,7 @@
  * Funções puras para gerenciar variantes de split test
  */
 
-export type Variant = 'a' | 'b' | 'c';
+export type Variant = 'a' | 'b' | 'c' | 'd';
 
 /**
  * Gera um número aleatório entre 0 e 1 usando crypto.getRandomValues
@@ -19,33 +19,33 @@ export function generateRandom(): number {
 /**
  * Escolhe uma variante baseado em um número aleatório (0-1)
  * Split atual:
- * B: 50%
  * C: 50%
- * (A removida do split)
+ * D: 50%
+ * (A e B removidas do split)
  * @param random - Número entre 0 e 1
- * @returns Variante 'b' ou 'c'
+ * @returns Variante 'c' ou 'd'
  */
 export function pickVariant(random: number): Variant {
   if (random < 0 || random >= 1) {
     throw new Error('random deve estar entre 0 (inclusive) e 1 (exclusive)');
   }
 
-  return random < 0.5 ? 'b' : 'c';
+  return random < 0.5 ? 'c' : 'd';
 }
 
 /**
  * Normaliza um valor desconhecido para uma variante válida
  * @param value - Valor a ser normalizado
- * @returns Variante 'a', 'b', 'c' ou null se inválido
+ * @returns Variante 'a', 'b', 'c', 'd' ou null se inválido
  */
 export function normalizeVariant(value: unknown): Variant | null {
-  if (value === 'a' || value === 'b' || value === 'c') {
+  if (value === 'a' || value === 'b' || value === 'c' || value === 'd') {
     return value;
   }
   if (typeof value === 'string') {
     const lower = value.toLowerCase().trim();
-    if (lower === 'a' || lower === 'b' || lower === 'c') {
-      return lower;
+    if (lower === 'a' || lower === 'b' || lower === 'c' || lower === 'd') {
+      return lower as Variant;
     }
   }
   return null;
