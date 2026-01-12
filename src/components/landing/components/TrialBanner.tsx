@@ -35,11 +35,11 @@ export function TrialBanner({ className }: TrialBannerProps) {
             <div className="relative z-10 space-y-2">
                 <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
                     <span className="text-transparent bg-clip-text bg-linear-to-r from-accent-400 via-brand-400 to-brand-300">
-                        EXPERIMENTE POR 15 DIAS GRÁTIS!
+                        EXPERIMENTE POR <br className="md:hidden" /> 15 DIAS GRÁTIS!
                     </span>
                 </h3>
                 <p className="text-cream-300 text-sm sm:text-base font-medium">
-                    Oferta especial válida em <span className="text-brand-300">{formattedMonth}</span> para o plano Iniciado
+                    Oferta especial válida em <span className="text-brand-300">{formattedMonth}</span> <br className="md:hidden" /> para o plano Iniciado
                 </p>
             </div>
         </motion.div>
