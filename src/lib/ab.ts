@@ -19,18 +19,17 @@ export function generateRandom(): number {
 /**
  * Escolhe uma variante baseado em um número aleatório (0-1)
  * Split atual:
- * C: 50%
- * D: 50%
- * (A e B removidas do split)
+ * D: 100%
+ * (A, B e C removidas do split)
  * @param random - Número entre 0 e 1
- * @returns Variante 'c' ou 'd'
+ * @returns Variante 'd'
  */
 export function pickVariant(random: number): Variant {
   if (random < 0 || random >= 1) {
     throw new Error('random deve estar entre 0 (inclusive) e 1 (exclusive)');
   }
 
-  return random < 0.5 ? 'c' : 'd';
+  return 'd';
 }
 
 /**
