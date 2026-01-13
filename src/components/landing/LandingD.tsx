@@ -584,16 +584,7 @@ export function LandingD() {
                 );
             })()}
 
-            <div className="section-separator max-w-4xl mx-auto" />
 
-            {/* Guarantee */}
-            {sections.find((s) => s.type === 'guarantee') && (() => {
-                const section = sections.find((s) => s.type === 'guarantee') as Extract<
-                    typeof sections[number],
-                    { type: 'guarantee' }
-                >;
-                return <GuaranteeSectionD section={section} />;
-            })()}
 
             <div className="section-separator max-w-4xl mx-auto" />
 

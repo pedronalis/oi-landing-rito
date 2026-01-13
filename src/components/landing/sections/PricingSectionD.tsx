@@ -185,7 +185,7 @@ export function PricingSectionD({ title, description, pricing }: PricingSectionD
                                             rel="noopener noreferrer"
                                             className={cn(
                                                 'relative block w-full py-4 rounded-xl text-center font-bold text-base md:text-sm uppercase tracking-wide transition-all duration-200 overflow-hidden',
-                                                isHighlighted
+                                                isHighlighted || isIniciado
                                                     ? 'bg-brand-500/20 backdrop-blur-md border border-brand-400/40 text-brand-400 hover:bg-brand-500/30 hover:border-brand-400/60 hover:text-brand-300 shadow-lg shadow-brand-500/10'
                                                     : 'bg-white/5 backdrop-blur-md border border-white/20 text-cream-200 hover:bg-white/10 hover:border-white/30'
                                             )}
