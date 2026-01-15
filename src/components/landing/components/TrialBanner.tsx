@@ -1,4 +1,5 @@
 'use client';
+// Updated: 2026-01-15 - 3 days trial
 
 import { useMemo } from 'react';
 import { cn } from '@/lib/utils';
@@ -35,7 +36,7 @@ export function TrialBanner({ className }: TrialBannerProps) {
             <div className="relative z-10 space-y-2">
                 <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
                     <span className="text-transparent bg-clip-text bg-linear-to-r from-accent-400 via-brand-400 to-brand-300">
-                        EXPERIMENTE POR <br className="md:hidden" /> 15 DIAS GRÁTIS!
+                        EXPERIMENTE POR <br className="md:hidden" /> 3 DIAS GRÁTIS!
                     </span>
                 </h3>
                 <p className="text-cream-300 text-sm sm:text-base font-medium">

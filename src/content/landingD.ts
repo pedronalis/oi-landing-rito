@@ -485,7 +485,7 @@ export const landingDContent: LandingContent = {
         priceNote: 'Apenas plano Mensal',
         priceSubnote: 'no cartão',
         ctaLabel: 'INICIAR TESTE GRATUITO',
-        checkoutUrl: 'https://chk.eduzz.com/8WPA8ZNYWP?utm_source=passagemD',
+        checkoutUrl: 'https://chk.eduzz.com/E0D6R1RD91?utm_source=passagemD',
         highlighted: false,
       },
       {

@@ -128,7 +128,7 @@ export function PricingSectionD({ title, description, pricing }: PricingSectionD
                                             <>
                                                 <div className="flex flex-col items-center justify-center mb-2 text-center">
                                                     <p className="text-2xl sm:text-3xl font-bold leading-none text-brand-400">
-                                                        15 DIAS GRÁTIS
+                                                        3 DIAS GRÁTIS
                                                     </p>
                                                 </div>
                                                 <p className="text-cream-400 md:text-cream-500 text-xs md:text-[10px] text-center mb-6 md:mb-5 tracking-wide px-4 text-balance">
