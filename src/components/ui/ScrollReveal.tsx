@@ -153,7 +153,7 @@ export function StaggerItem({
       scale: 1,
       transition: {
         duration: shouldReduceMotion ? 0.15 : 0.3,
-        ease: 'easeOut',
+        ease: [0.25, 0.1, 0.25, 1] as const, // cubic-bezier easeOut
       },
     },
   };
