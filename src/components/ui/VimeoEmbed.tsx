@@ -66,7 +66,8 @@ export function VimeoEmbed({ videoId, title, className }: VimeoEmbedProps) {
                                 fill
                                 className="object-cover blur-sm scale-105"
                                 unoptimized
-                                priority
+                                loading="lazy"
+                                sizes="(max-width: 768px) 100vw, 800px"
                             />
                             {/* Dark overlay for better contrast */}
                             <div className="absolute inset-0 bg-black/40" />

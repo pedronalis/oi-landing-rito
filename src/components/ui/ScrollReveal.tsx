@@ -42,12 +42,13 @@ export function ScrollReveal({
     parallax && !shouldReduceMotion ? [50 * parallaxIntensity, -50 * parallaxIntensity] : [0, 0]
   );
 
+  // Animações simplificadas para melhor performance
   const variants = {
     hidden: {
       opacity: 0,
-      y: direction === 'up' ? 30 : direction === 'down' ? -30 : 0,
-      x: direction === 'left' ? 30 : direction === 'right' ? -30 : 0,
-      scale: withScale ? 0.95 : 1,
+      y: shouldReduceMotion ? 0 : (direction === 'up' ? 20 : direction === 'down' ? -20 : 0),
+      x: shouldReduceMotion ? 0 : (direction === 'left' ? 20 : direction === 'right' ? -20 : 0),
+      scale: withScale && !shouldReduceMotion ? 0.98 : 1,
     },
     visible: {
       opacity: 1,
@@ -57,24 +58,19 @@ export function ScrollReveal({
     },
   };
 
-  const reducedMotionVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
-  };
-
   return (
     <motion.div
       ref={ref}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: '-80px' }}
+      viewport={{ once: true, margin: '-50px' }}
       transition={{
-        duration: shouldReduceMotion ? 0.3 : 0.6,
-        delay,
-        ease: [0.16, 1, 0.3, 1] as [number, number, number, number], // ease-out-expo
+        duration: shouldReduceMotion ? 0.2 : 0.4,
+        delay: Math.min(delay, 0.2), // Cap delay para melhor UX
+        ease: 'easeOut',
       }}
-      variants={shouldReduceMotion ? reducedMotionVariants : variants}
-      style={parallax ? { y: parallaxY } : undefined}
+      variants={variants}
+      style={parallax && !shouldReduceMotion ? { y: parallaxY } : undefined}
       className={cn(className)}
     >
       {children}
@@ -96,7 +92,7 @@ interface StaggerContainerProps {
 export function StaggerContainer({
   children,
   className,
-  staggerDelay = 0.1,
+  staggerDelay = 0.05, // Reduzido de 0.1
   initialDelay = 0,
 }: StaggerContainerProps) {
   const shouldReduceMotion = useReducedMotion();
@@ -106,7 +102,7 @@ export function StaggerContainer({
     visible: {
       opacity: 1,
       transition: {
-        delayChildren: initialDelay,
+        delayChildren: Math.min(initialDelay, 0.1),
         staggerChildren: shouldReduceMotion ? 0 : staggerDelay,
       },
     },
@@ -116,7 +112,7 @@ export function StaggerContainer({
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: '-50px' }}
+      viewport={{ once: true, margin: '-30px' }}
       variants={containerVariants}
       className={cn(className)}
     >
@@ -139,16 +135,16 @@ export function StaggerItem({
   children,
   className,
   direction = 'up',
-  withScale = true,
+  withScale = false, // Mudado para false por padrão
 }: StaggerItemProps) {
   const shouldReduceMotion = useReducedMotion();
 
   const itemVariants = {
     hidden: {
       opacity: 0,
-      y: direction === 'up' ? 20 : direction === 'down' ? -20 : 0,
-      x: direction === 'left' ? 20 : direction === 'right' ? -20 : 0,
-      scale: withScale ? 0.95 : 1,
+      y: shouldReduceMotion ? 0 : (direction === 'up' ? 15 : direction === 'down' ? -15 : 0),
+      x: shouldReduceMotion ? 0 : (direction === 'left' ? 15 : direction === 'right' ? -15 : 0),
+      scale: withScale && !shouldReduceMotion ? 0.98 : 1,
     },
     visible: {
       opacity: 1,
@@ -156,8 +152,8 @@ export function StaggerItem({
       x: 0,
       scale: 1,
       transition: {
-        duration: shouldReduceMotion ? 0.2 : 0.5,
-        ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+        duration: shouldReduceMotion ? 0.15 : 0.3,
+        ease: 'easeOut',
       },
     },
   };

@@ -3,19 +3,19 @@ import { Bricolage_Grotesque, Ubuntu } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
 
-// Optimized font loading with next/font
+// Optimized font loading - reduced weights for faster load
 const bricolage = Bricolage_Grotesque({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-display',
-  weight: ['400', '500', '600', '700', '800'],
+  weight: ['600', '700', '800'], // Reduzido: apenas bold weights usados
 });
 
 const ubuntu = Ubuntu({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-sans',
-  weight: ['300', '400', '500', '700'],
+  weight: ['400', '700'], // Reduzido: apenas regular e bold
 });
 
 export const metadata: Metadata = {
@@ -38,13 +38,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${bricolage.variable} ${ubuntu.variable}`}>
+    <html lang="pt-BR" className={`${bricolage.variable} ${ubuntu.variable}`} suppressHydrationWarning>
       <head>
+        {/* Previne Safari iOS de converter números em links (causa hydration errors) */}
+        <meta name="format-detection" content="telephone=no" />
+
         {/* Facebook Pixel - noscript fallback */}
         <noscript>
-          <img 
-            height="1" 
-            width="1" 
+          <img
+            height="1"
+            width="1"
             style={{ display: 'none' }}
             src={`https://www.facebook.com/tr?id=${FB_PIXEL_ID}&ev=PageView&noscript=1`}
             alt=""
@@ -53,11 +56,11 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         {children}
-        
-        {/* Facebook Pixel Base Code */}
+
+        {/* Facebook Pixel Base Code - carrega após interação para não bloquear */}
         <Script
           id="facebook-pixel"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         >
           {`
             !function(f,b,e,v,n,t,s)

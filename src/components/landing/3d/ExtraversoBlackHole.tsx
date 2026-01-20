@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface Particle {
   x: number;
@@ -11,12 +11,49 @@ interface Particle {
   opacity: number;
 }
 
+/**
+ * Detecta se o dispositivo é low-end ou mobile
+ * Retorna true se deve usar versão simplificada ou não renderizar
+ */
+function isLowEndDevice(): boolean {
+  if (typeof window === 'undefined') return true;
+
+  // Verifica número de cores do CPU
+  const cores = navigator.hardwareConcurrency || 2;
+  if (cores <= 4) return true;
+
+  // Verifica se é mobile pelo user agent
+  const isMobile = /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+  if (isMobile) return true;
+
+  // Verifica se prefere reduced motion (acessibilidade)
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) return true;
+
+  // Verifica memória do dispositivo (se disponível)
+  const deviceMemory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
+  if (deviceMemory && deviceMemory < 4) return true;
+
+  return false;
+}
+
 export default function ExtraversoBlackHole() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const animationRef = useRef<number>(0);
+  const [shouldRender, setShouldRender] = useState(false);
+
+  // Detecta capacidade do dispositivo apenas no cliente
+  useEffect(() => {
+    setShouldRender(!isLowEndDevice());
+  }, []);
 
   useEffect(() => {
+    // Não executa animação em dispositivos low-end
+    if (!shouldRender) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -42,18 +79,19 @@ export default function ExtraversoBlackHole() {
       const angle = Math.random() * Math.PI * 2;
       const distance = 250 + Math.random() * 400;
       const target = getTarget();
-      
+
       return {
         x: target.x + Math.cos(angle) * distance,
         y: target.y + Math.sin(angle) * distance,
         vx: 0,
         vy: 0,
-        size: 0.6 + Math.random() * 1.0, // smaller circles 0.6-1.6px
-        opacity: 0.3 + Math.random() * 0.5, // Reduced opacity: 0.3-0.8 (was 0.4-0.9)
+        size: 0.6 + Math.random() * 1.0,
+        opacity: 0.3 + Math.random() * 0.5,
       };
     };
 
-    const particleCount = 200;
+    // Quantidade de partículas reduzida para melhor performance
+    const particleCount = 150; // Reduzido de 200
     particlesRef.current = [];
     for (let i = 0; i < particleCount; i++) {
       particlesRef.current.push(createParticle());
@@ -65,7 +103,20 @@ export default function ExtraversoBlackHole() {
       return minDist < edge ? minDist / edge : 1;
     };
 
-    const animate = () => {
+    // Variáveis para throttling
+    let lastFrameTime = 0;
+    const targetFPS = 30; // Limita a 30 FPS para economizar recursos
+    const frameInterval = 1000 / targetFPS;
+
+    const animate = (currentTime: number) => {
+      // Throttle para 30 FPS
+      const elapsed = currentTime - lastFrameTime;
+      if (elapsed < frameInterval) {
+        animationRef.current = requestAnimationFrame(animate);
+        return;
+      }
+      lastFrameTime = currentTime - (elapsed % frameInterval);
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const target = getTarget();
@@ -106,13 +157,18 @@ export default function ExtraversoBlackHole() {
       animationRef.current = requestAnimationFrame(animate);
     };
 
-    animate();
+    animationRef.current = requestAnimationFrame(animate);
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       cancelAnimationFrame(animationRef.current);
     };
-  }, []);
+  }, [shouldRender]);
+
+  // Não renderiza nada em dispositivos low-end
+  if (!shouldRender) {
+    return null;
+  }
 
   return (
     <canvas

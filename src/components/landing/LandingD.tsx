@@ -37,12 +37,31 @@ const GuaranteeSectionD = dynamic(
     { loading: () => <div className="min-h-64 bg-dark-50/50 animate-pulse" /> }
 );
 
-// Import custom sections for Landing C
-import { PlatformJourneyC } from './sections/PlatformJourneyC';
-import { TreasureMapArsenalC } from './sections/TreasureMapArsenalC';
-import { HowWeDefeatSectionD } from './sections/HowWeDefeatSectionD';
-import { PricingSectionD } from './sections/PricingSectionD';
-import { TrialBanner } from './components/TrialBanner';
+// Dynamic imports para seções below-the-fold
+const PlatformJourneyC = dynamic(
+    () => import('./sections/PlatformJourneyC').then((mod) => ({ default: mod.PlatformJourneyC })),
+    { loading: () => <div className="min-h-96 bg-dark-50/50 animate-pulse" /> }
+);
+
+const TreasureMapArsenalC = dynamic(
+    () => import('./sections/TreasureMapArsenalC').then((mod) => ({ default: mod.TreasureMapArsenalC })),
+    { loading: () => <div className="min-h-96 bg-dark-50/50 animate-pulse" /> }
+);
+
+const HowWeDefeatSectionD = dynamic(
+    () => import('./sections/HowWeDefeatSectionD').then((mod) => ({ default: mod.HowWeDefeatSectionD })),
+    { loading: () => <div className="min-h-64 bg-dark-50/50 animate-pulse" /> }
+);
+
+const PricingSectionD = dynamic(
+    () => import('./sections/PricingSectionD').then((mod) => ({ default: mod.PricingSectionD })),
+    { loading: () => <div className="min-h-96 bg-dark-50/50 animate-pulse" /> }
+);
+
+const TrialBanner = dynamic(
+    () => import('./components/TrialBanner').then((mod) => ({ default: mod.TrialBanner })),
+    { loading: () => <div className="h-16 bg-dark-50/50 animate-pulse rounded-lg" /> }
+);
 
 export function LandingD() {
     const { hero, sections, pricing } = landingDContent;
