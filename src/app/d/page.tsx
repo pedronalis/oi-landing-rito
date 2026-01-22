@@ -1,4 +1,4 @@
-import { LandingD } from '@/components/landing/LandingD';
+import { RitoLandingPage } from '@/components/landing/RitoLandingPage';
 import { landingDContent } from '@/content/landingD';
 import type { Metadata } from 'next';
 
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function LandingDPage() {
-    return <LandingD />;
+    return <RitoLandingPage />;
 }

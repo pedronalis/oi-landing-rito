@@ -32,8 +32,8 @@ const TestimonialsSection = dynamic(
     { loading: () => <div className="min-h-96 bg-dark-50/50 animate-pulse" /> }
 );
 
-const GuaranteeSectionD = dynamic(
-    () => import('./sections/GuaranteeSectionD').then((mod) => ({ default: mod.GuaranteeSectionD })),
+const GuaranteeSection = dynamic(
+    () => import('./sections/GuaranteeSection').then((mod) => ({ default: mod.GuaranteeSection })),
     { loading: () => <div className="min-h-64 bg-dark-50/50 animate-pulse" /> }
 );
 
@@ -58,12 +58,9 @@ const PricingSectionD = dynamic(
     { loading: () => <div className="min-h-96 bg-dark-50/50 animate-pulse" /> }
 );
 
-const TrialBanner = dynamic(
-    () => import('./components/TrialBanner').then((mod) => ({ default: mod.TrialBanner })),
-    { loading: () => <div className="h-16 bg-dark-50/50 animate-pulse rounded-lg" /> }
-);
 
-export function LandingD() {
+
+export function RitoLandingPage() {
     const { hero, sections, pricing } = landingDContent;
 
     const scrollToPricing = () => {
@@ -97,22 +94,21 @@ export function LandingD() {
             <section className="relative z-10 pt-2 pb-6 md:pt-4 md:pb-12 lg:pt-6 lg:pb-20 px-5 sm:px-6">
                 <div className="max-w-5xl mx-auto text-center">
                     <StaggerContainer staggerDelay={0.15} className="space-y-8">
-                        {/* Main Title - IGUAL à Landing A */}
+                        {/* Main Title */}
                         <StaggerItem>
-                            <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-cream-200 leading-tight">
-                                Uma nova forma de{' '}
-                                <span className="text-transparent bg-clip-text bg-linear-to-r from-brand-400 to-brand-300">SER</span>
-                                <br className="md:hidden" />
-                                {' '}e{' '}
-                                <span className="text-transparent bg-clip-text bg-linear-to-r from-accent-400 to-accent-300">CRIAR</span>
-                                {' '}no Digital
+                            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-cream-200 leading-tight">
+                                Crie produtos{' '}
+                                <span className="text-transparent bg-clip-text bg-linear-to-r from-brand-400 to-brand-300">INÉDITOS</span>
+                                {' '}e altamente lucrativos em 48 horas e assuma o trono de profissional{' '}
+                                <span className="text-transparent bg-clip-text bg-linear-to-r from-accent-400 to-accent-300">"foda"</span>
+                                {' '}do seu nicho.
                             </h1>
                         </StaggerItem>
 
                         {/* Subtitle - MESMA FONTE da headline (display), maior */}
                         <StaggerItem>
                             {/* Ajuste o valor dentro de text-[...] para mudar o tamanho no mobile */}
-                            <p className="font-display text-2xl sm:text[2.5rem] md:text-[2.5rem] lg:text-[2.4rem] text-cream-200 max-w-[28rem] sm:max-w-[59rem] mx-auto font-bold tracking-tight leading-tight">
+                            <p className="font-display text-2xl sm:text-[2rem] md:text-[2rem] lg:text-[2rem] text-cream-200 max-w-[28rem] sm:max-w-[59rem] mx-auto font-bold tracking-tight leading-tight">
                                 {hero.subtitle}
                             </p>
                         </StaggerItem>
@@ -201,27 +197,6 @@ export function LandingD() {
 
                             <ScrollReveal delay={0.2}>
                                 <VimeoEmbed videoId="1152211813" title="ordem-pv2" className="mb-8" />
-                            </ScrollReveal>
-
-                            <ScrollReveal delay={0.25}>
-                                <div className="max-w-2xl mx-auto mb-8">
-                                    <TrialBanner />
-                                </div>
-                            </ScrollReveal>
-
-                            <ScrollReveal delay={0.3}>
-                                <div className="text-center space-y-5">
-                                    <CTAButton
-                                        withGlow
-                                        withPulse
-                                        variant="primary"
-                                        className="text-lg md:text-xl px-10 py-5"
-                                        onClick={scrollToPricing}
-                                    >
-                                        {section.ctaLabel}
-                                    </CTAButton>
-                                    <CTAHintBadges items={['Multiplicar ROI', 'Ganhar Tempo', 'Saúde Mental']} />
-                                </div>
                             </ScrollReveal>
                         </div>
                     </section>
@@ -370,8 +345,6 @@ export function LandingD() {
                         title={section.title}
                         description={section.description}
                         videoLabel={section.videoLabel}
-                        ctaLabel={section.ctaLabel}
-                        onCtaClick={scrollToPricing}
                     />
                 );
             })()}
@@ -603,7 +576,16 @@ export function LandingD() {
                 );
             })()}
 
+            <div className="section-separator max-w-4xl mx-auto" />
 
+            {/* Guarantee Section - from Landing C */}
+            {sections.find((s) => s.type === 'guarantee') && (() => {
+                const section = sections.find((s) => s.type === 'guarantee') as Extract<
+                    typeof sections[number],
+                    { type: 'guarantee' }
+                >;
+                return <GuaranteeSection section={section} />;
+            })()}
 
             <div className="section-separator max-w-4xl mx-auto" />
 
@@ -660,7 +642,7 @@ export function LandingD() {
                                                 id={`faq-${index}`}
                                                 icon={isFirstQuestion ? Clock : HelpCircle}
                                                 variant={isFirstQuestion ? 'neutral' : 'highlight'}
-                                                badge={!isFirstQuestion ? '💡 TESTE AGORA' : undefined}
+                                                badge={undefined}
                                             />
                                         </ScrollReveal>
                                     );

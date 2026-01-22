@@ -11,9 +11,9 @@ export const landingDContent: LandingContent = {
   },
   hero: {
     eyebrow: '——  Ordem Inédita ——',
-    title: 'Uma nova forma de SER e CRIAR no Digital',
+    title: 'Crie produtos INÉDITOS e altamente lucrativos em 48 horas e assuma o trono de profissional "foda" do seu nicho.',
     subtitle:
-      'Transforme seu caos criativo em um ecossistema que gera lucro, identidade e paz mental — mesmo que a última coisa que você criou foi um trauma.',
+      'O processo é simples, o ROI é brutal — Isso é o atalho que parece trapaça, criando ofertas que ninguém jamais viu.',
     primaryCtaLabel: 'QUERO ENTRAR PRA ORDEM',
     secondaryHint: '⤴ Multiplicar ROI + Tempo + Saúde Mental',
     heroVideoLabel: 'VIDEO',
@@ -418,7 +418,7 @@ export const landingDContent: LandingContent = {
     {
       id: 'pricing',
       type: 'pricing',
-      title: 'Escolha o teu nível no jogo',
+      title: 'Assine o Plano Trimestral',
       description: '...e comece sua aventura!',
     },
     {
@@ -446,7 +446,7 @@ export const landingDContent: LandingContent = {
         {
           question: '"Ainda não entendi a Ordem"',
           answer:
-            'Isso explica muita coisa, inclusive por que o marketing te estressa 😂\n\nQuer entender e decidir rápido?\n\nClica no botão, assina, veja os módulos iniciais e testa.\n\nSó isso que te peço: TESTE!',
+            'Isso explica muita coisa, inclusive por que o marketing te estressa 😂\n\nQuer entender e decidir rápido?\n\nClica no botão, assina e veja os módulos iniciais.\n\nSe não curtir, pede reembolso.',
         },
       ],
     },
@@ -455,7 +455,7 @@ export const landingDContent: LandingContent = {
       type: 'finalCta',
       title: '',
       description: '',
-      ctaLabel: 'INICIAR TESTE GRATUITO',
+      ctaLabel: 'QUERO ENTRAR PRA ORDEM',
       hint: '⤴ Multiplicar ROI + Tempo + Saúde Mental',
       note: 'Vai por mim… vai valer a pena 😉',
     },
@@ -463,14 +463,11 @@ export const landingDContent: LandingContent = {
   pricing: {
     plans: [
       {
-        name: 'Iniciado',
-        description:
-          'Ideal para quem ainda não tem seu negócio no digital.',
+        name: 'Ordem Inédita',
+        description: '',
         features: [
           '✅ IAs nível Iniciado',
-          '❌ IAs nível guerreiro',
-          '✅ Cursos nível Iniciado',
-          '❌ Cursos nível guerreiro',
+          '✅ Cursos completos',
           '✅ Slow Flowᵒⁱ',
           '✅ Focus Blocusᵒⁱ',
           '✅ Oráculoᵒⁱ',
@@ -481,37 +478,11 @@ export const landingDContent: LandingContent = {
           '✅ Lives Exclusivas',
           '✅ Suporte humano',
         ],
-        price: 'R$ 99,90 / mês',
-        priceNote: 'Apenas plano Mensal',
-        priceSubnote: 'no cartão',
-        ctaLabel: 'INICIAR TESTE GRATUITO',
-        checkoutUrl: 'https://chk.eduzz.com/E0D6R1RD91?utm_source=passagemD',
-        highlighted: false,
-      },
-      {
-        name: 'Guerreiro',
-        description:
-          'Ideal para quem já tem seu negócio no digital e quer atingir o próximo nível',
-        features: [
-          '✅ IAs nível Iniciado',
-          '✅ IAs nível guerreiro',
-          '✅ Cursos nível Iniciado',
-          '✅ Cursos nível guerreiro',
-          '✅ Slow Flowᵒⁱ',
-          '✅ Focus Blocusᵒⁱ',
-          '✅ Oráculoᵒⁱ',
-          '✅ Extraversoᵒⁱ',
-          '✅ Questsᵒⁱ',
-          '✅ Premiações',
-          '✅ Taverna',
-          '✅ Lives Exclusivas',
-          '✅ Suporte humano',
-        ],
-        price: 'R$ 2399 / semestre',
-        priceNote: 'Apenas plano Semestral',
-        priceSubnote: 'à vista no pix ou 6x sem juros no cartão',
-        ctaLabel: 'QUERO SER GUERREIRO',
-        checkoutUrl: 'https://chk.eduzz.com/69KAR7Z70O?utm_source=passagemD',
+        price: 'R$ 297 / trimestre',
+        priceNote: 'Apenas plano Trimestral',
+        priceSubnote: 'à vista no pix ou em 3x sem juros no cartão',
+        ctaLabel: 'QUERO ENTRAR PRA ORDEM',
+        checkoutUrl: 'https://chk.eduzz.com/797777J49E',
         highlighted: true,
       },
     ],

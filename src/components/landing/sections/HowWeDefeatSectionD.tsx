@@ -5,24 +5,18 @@ import { useRef } from 'react';
 import { VimeoEmbed } from '@/components/ui/VimeoEmbed';
 import { Prose } from '@/components/ui/Prose';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
-import { CTAButton } from '@/components/ui/CTAButton';
-import { CTAHintBadges } from '@/components/ui/CTAHint';
-import { TrialBanner } from '../components/TrialBanner';
+
 
 interface HowWeDefeatSectionDProps {
     title: string;
     description: string;
     videoLabel: string;
-    ctaLabel: string;
-    onCtaClick?: () => void;
 }
 
 export function HowWeDefeatSectionD({
     title,
     description,
     videoLabel,
-    ctaLabel,
-    onCtaClick,
 }: HowWeDefeatSectionDProps) {
     const sectionRef = useRef<HTMLElement>(null);
     const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
@@ -238,23 +232,8 @@ export function HowWeDefeatSectionD({
                 </ScrollReveal>
 
                 <ScrollReveal delay={0.25}>
-                    <div className="max-w-2xl mx-auto mb-8">
-                        <TrialBanner />
-                    </div>
-                </ScrollReveal>
+                    <div className="max-w-2xl mx-auto">
 
-                <ScrollReveal delay={0.3}>
-                    <div className="text-center space-y-5">
-                        <CTAButton
-                            withGlow
-                            withPulse
-                            variant="primary"
-                            className="text-lg md:text-xl px-10 py-5"
-                            onClick={onCtaClick}
-                        >
-                            {ctaLabel}
-                        </CTAButton>
-                        <CTAHintBadges items={['Multiplicar ROI', 'Ganhar Tempo', 'Saúde Mental']} />
                     </div>
                 </ScrollReveal>
             </div>

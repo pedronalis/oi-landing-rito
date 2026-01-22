@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { useScroll } from 'framer-motion';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
-import { TrialBanner } from '../components/TrialBanner';
+
 import { CTAButton } from '@/components/ui/CTAButton';
 import type { Section } from '@/content/types';
 
@@ -31,11 +31,6 @@ export function GuaranteeSectionD({ section }: GuaranteeSectionDProps) {
       <div className="max-w-4xl mx-auto relative z-10">
         <ScrollReveal withScale>
           <div className="flex flex-col items-center justify-center text-center space-y-8 md:space-y-10">
-            {/* Trial Banner - Centralized as the new guarantee */}
-            <div className="w-full max-w-2xl transform hover:scale-[1.02] transition-transform duration-500">
-              <TrialBanner className="shadow-2xl shadow-brand-500/10 border-brand-400/30" />
-            </div>
-
             {/* CTA Button */}
             <CTAButton
               withGlow
@@ -44,7 +39,7 @@ export function GuaranteeSectionD({ section }: GuaranteeSectionDProps) {
               className="text-lg md:text-xl px-12 py-5 min-w-[300px]"
               onClick={scrollToPricing}
             >
-              INICIAR TESTE GRATUITO
+              QUERO ENTRAR PRA A ORDEM
             </CTAButton>
           </div>
         </ScrollReveal>
