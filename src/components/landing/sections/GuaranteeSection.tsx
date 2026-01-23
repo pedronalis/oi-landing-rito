@@ -4,6 +4,7 @@ import { ScrollReveal, StaggerContainer, StaggerItem } from '@/components/ui/Scr
 import { GlassPanel } from '@/components/ui/GlassPanel';
 import { PremiumIcon } from '@/components/ui/PremiumIcon';
 import { Prose } from '@/components/ui/Prose';
+import { useIsMobile } from '@/hooks/useIsMobile';
 import type { GuaranteeSection as GuaranteeSectionType } from '@/content/types';
 
 interface GuaranteeSectionProps {
@@ -14,6 +15,7 @@ export function GuaranteeSection({ section }: GuaranteeSectionProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
   const shouldReduceMotion = useReducedMotion();
+  const isMobile = useIsMobile();
 
   return (
     <section
@@ -21,77 +23,79 @@ export function GuaranteeSection({ section }: GuaranteeSectionProps) {
       className="relative z-10 py-16 sm:py-20 md:py-32 lg:py-40 px-5 sm:px-6 overflow-hidden"
     >
       {/* Background Orbs - Premium Pattern (Reduzido) */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Bola Brand - Verde */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 1.2, delay: 0.3 }}
-          className="absolute top-1/4 left-1/4 w-64 h-64 md:w-80 md:h-80 rounded-full"
-          style={{
-            background: 'radial-gradient(circle, rgba(110, 255, 91, 0.06) 0%, rgba(110, 255, 91, 0.02) 40%, transparent 70%)',
-            filter: 'blur(100px)',
-          }}
-          aria-hidden="true"
-        >
+      {!isMobile && (
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {/* Bola Brand - Verde */}
           <motion.div
-            animate={
-              shouldReduceMotion
-                ? {}
-                : {
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 1.2, delay: 0.3 }}
+            className="absolute top-1/4 left-1/4 w-64 h-64 md:w-80 md:h-80 rounded-full"
+            style={{
+              background: 'radial-gradient(circle, rgba(110, 255, 91, 0.06) 0%, rgba(110, 255, 91, 0.02) 40%, transparent 70%)',
+              filter: 'blur(100px)',
+            }}
+            aria-hidden="true"
+          >
+            <motion.div
+              animate={
+                shouldReduceMotion
+                  ? {}
+                  : {
                     x: [0, 30, -20, 0],
                     y: [0, -40, 20, 0],
                     scale: [1, 1.25, 0.85, 1],
                   }
-            }
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-            className="absolute inset-0 rounded-full"
-            style={{
-              background: 'radial-gradient(circle, rgba(110, 255, 91, 0.08) 0%, transparent 60%)',
-              filter: 'blur(80px)',
-            }}
-          />
-        </motion.div>
+              }
+              transition={{
+                duration: 20,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+              className="absolute inset-0 rounded-full"
+              style={{
+                background: 'radial-gradient(circle, rgba(110, 255, 91, 0.08) 0%, transparent 60%)',
+                filter: 'blur(80px)',
+              }}
+            />
+          </motion.div>
 
-        {/* Bola Accent - Roxo */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 1.2, delay: 0.5 }}
-          className="absolute bottom-[5%] right-1/4 w-64 h-64 md:w-80 md:h-80 rounded-full"
-          style={{
-            background: 'radial-gradient(circle, rgba(179, 136, 255, 0.06) 0%, rgba(179, 136, 255, 0.02) 40%, transparent 70%)',
-            filter: 'blur(100px)',
-          }}
-          aria-hidden="true"
-        >
+          {/* Bola Accent - Roxo */}
           <motion.div
-            animate={
-              shouldReduceMotion
-                ? {}
-                : {
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 1.2, delay: 0.5 }}
+            className="absolute bottom-[5%] right-1/4 w-64 h-64 md:w-80 md:h-80 rounded-full"
+            style={{
+              background: 'radial-gradient(circle, rgba(179, 136, 255, 0.06) 0%, rgba(179, 136, 255, 0.02) 40%, transparent 70%)',
+              filter: 'blur(100px)',
+            }}
+            aria-hidden="true"
+          >
+            <motion.div
+              animate={
+                shouldReduceMotion
+                  ? {}
+                  : {
                     x: [0, -25, 35, 0],
                     y: [0, 30, -25, 0],
                     scale: [1, 0.8, 1.3, 1],
                   }
-            }
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-            className="absolute inset-0 rounded-full"
-            style={{
-              background: 'radial-gradient(circle, rgba(179, 136, 255, 0.08) 0%, transparent 60%)',
-              filter: 'blur(80px)',
-            }}
-          />
-        </motion.div>
-      </div>
+              }
+              transition={{
+                duration: 25,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+              className="absolute inset-0 rounded-full"
+              style={{
+                background: 'radial-gradient(circle, rgba(179, 136, 255, 0.08) 0%, transparent 60%)',
+                filter: 'blur(80px)',
+              }}
+            />
+          </motion.div>
+        </div>
+      )}
 
       <div className="relative max-w-4xl mx-auto z-10">
         {/* Container interno centralizado */}
@@ -107,12 +111,12 @@ export function GuaranteeSection({ section }: GuaranteeSectionProps) {
                   shouldReduceMotion
                     ? {}
                     : {
-                        scale: 1.05,
-                        transition: {
-                          duration: 0.3,
-                          ease: [0.16, 1, 0.3, 1],
-                        },
-                      }
+                      scale: 1.05,
+                      transition: {
+                        duration: 0.3,
+                        ease: [0.16, 1, 0.3, 1],
+                      },
+                    }
                 }
                 transition={{
                   duration: 0.6,
@@ -127,17 +131,17 @@ export function GuaranteeSection({ section }: GuaranteeSectionProps) {
                     shouldReduceMotion
                       ? {}
                       : {
-                          scale: [1, 1.02, 1],
-                          opacity: [0.2, 0.3, 0.2],
-                        }
+                        scale: [1, 1.02, 1],
+                        opacity: [0.2, 0.3, 0.2],
+                      }
                   }
                   whileHover={
                     shouldReduceMotion
                       ? {}
                       : {
-                          opacity: [0.3, 0.5, 0.3],
-                          scale: [1.05, 1.08, 1.05],
-                        }
+                        opacity: [0.3, 0.5, 0.3],
+                        scale: [1.05, 1.08, 1.05],
+                      }
                   }
                   transition={{
                     duration: 3,
@@ -208,9 +212,9 @@ export function GuaranteeSection({ section }: GuaranteeSectionProps) {
                       shouldReduceMotion
                         ? {}
                         : {
-                            scale: 1.1,
-                            transition: { duration: 0.2 },
-                          }
+                          scale: 1.1,
+                          transition: { duration: 0.2 },
+                        }
                     }
                     transition={{
                       duration: 0.4,
@@ -305,9 +309,9 @@ export function GuaranteeSection({ section }: GuaranteeSectionProps) {
                                 shouldReduceMotion
                                   ? {}
                                   : {
-                                      x: 4,
-                                      transition: { duration: 0.2 },
-                                    }
+                                    x: 4,
+                                    transition: { duration: 0.2 },
+                                  }
                               }
                             >
                               {/* Check Icon com Background Circular */}

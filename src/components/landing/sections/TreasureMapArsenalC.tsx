@@ -5,6 +5,7 @@ import { useRef } from 'react';
 import { Sparkles } from 'lucide-react';
 import { PremiumIcon } from '@/components/ui/PremiumIcon';
 import { cn } from '@/lib/utils';
+import { useIsMobile } from '@/hooks/useIsMobile';
 import type { ArsenalItem, ArsenalCategory, ArsenalIconType } from '@/content/types';
 
 interface TreasureMapArsenalCProps {
@@ -69,17 +70,18 @@ function TreasureCard({ item, index }: { item: ArsenalItem; index: number }) {
     const cardRef = useRef<HTMLDivElement>(null);
     const isInView = useInView(cardRef, { once: true, amount: 0.3 });
     const config = categoryConfig[item.category];
+    const isMobile = useIsMobile();
 
     return (
         <motion.div
             ref={cardRef}
-            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            initial={isMobile ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.95 }}
             animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-            transition={{ duration: 0.5, delay: index * 0.03, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.5, delay: isMobile ? 0 : index * 0.03, ease: [0.22, 1, 0.36, 1] }}
             className="group relative"
         >
             <motion.div
-                whileHover={{ y: -3, scale: 1.02 }}
+                whileHover={isMobile ? {} : { y: -3, scale: 1.02 }}
                 transition={{ duration: 0.25 }}
                 className={cn(
                     'relative h-full rounded-xl overflow-hidden',
@@ -132,6 +134,8 @@ function TreasureCard({ item, index }: { item: ArsenalItem; index: number }) {
 }
 
 function CompassRose({ className }: { className?: string }) {
+    const isMobile = useIsMobile();
+
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -140,16 +144,28 @@ function CompassRose({ className }: { className?: string }) {
             className={cn('relative', className)}
         >
             <svg className="w-20 h-20 md:w-24 md:h-24" viewBox="0 0 100 100" fill="none">
-                <motion.circle
-                    cx="50" cy="50" r="45"
-                    stroke="url(#compassGradientC)"
-                    strokeWidth="1"
-                    strokeDasharray="6 4"
-                    opacity="0.6"
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
-                    style={{ transformOrigin: '50px 50px' }}
-                />
+                {isMobile ? (
+                    // Static Compass for Mobile
+                    <circle
+                        cx="50" cy="50" r="45"
+                        stroke="url(#compassGradientC)"
+                        strokeWidth="1"
+                        strokeDasharray="6 4"
+                        opacity="0.6"
+                    />
+                ) : (
+                    // Animated Compass for Desktop
+                    <motion.circle
+                        cx="50" cy="50" r="45"
+                        stroke="url(#compassGradientC)"
+                        strokeWidth="1"
+                        strokeDasharray="6 4"
+                        opacity="0.6"
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
+                        style={{ transformOrigin: '50px 50px' }}
+                    />
+                )}
                 <circle cx="50" cy="50" r="35" stroke="rgba(110, 255, 91, 0.25)" strokeWidth="0.5" />
                 <circle cx="50" cy="8" r="2" fill="rgba(110, 255, 91, 0.5)" />
                 <circle cx="50" cy="92" r="2" fill="rgba(179, 136, 255, 0.5)" />
@@ -159,13 +175,18 @@ function CompassRose({ className }: { className?: string }) {
                 <path d="M50 85 L54 58 L50 62 L46 58 Z" fill="rgba(179, 136, 255, 0.6)" />
                 <path d="M85 50 L58 46 L62 50 L58 54 Z" fill="rgba(110, 255, 91, 0.4)" />
                 <path d="M15 50 L42 46 L38 50 L42 54 Z" fill="rgba(179, 136, 255, 0.4)" />
-                <motion.circle
-                    cx="50" cy="50" r="6"
-                    fill="url(#compassGradientC)"
-                    animate={{ scale: [1, 1.15, 1], opacity: [1, 0.8, 1] }}
-                    transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                    style={{ transformOrigin: '50px 50px' }}
-                />
+                {!isMobile && (
+                    <motion.circle
+                        cx="50" cy="50" r="6"
+                        fill="url(#compassGradientC)"
+                        animate={{ scale: [1, 1.15, 1], opacity: [1, 0.8, 1] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                        style={{ transformOrigin: '50px 50px' }}
+                    />
+                )}
+                {isMobile && (
+                    <circle cx="50" cy="50" r="6" fill="url(#compassGradientC)" />
+                )}
                 <circle cx="50" cy="50" r="3" fill="#1f2121" />
                 <defs>
                     <linearGradient id="compassGradientC" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -181,6 +202,9 @@ function CompassRose({ className }: { className?: string }) {
 // Floating Particles Component - premium treasure map effect
 // Particles drift downward and converge toward the X marker at bottom center
 function FloatingParticles() {
+    const isMobile = useIsMobile();
+    if (isMobile) return null;
+
     // Generate particle configurations - stable between renders
     const particles = Array.from({ length: 25 }, (_, i) => ({
         id: i,
@@ -234,11 +258,13 @@ function FloatingParticles() {
 }
 
 function TreasureMarker({ className }: { className?: string }) {
+    const isMobile = useIsMobile();
+
     return (
         <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
+            initial={isMobile ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 2.8 }}
+            transition={{ duration: 0.5, delay: isMobile ? 0 : 2.8 }}
             className={cn('relative mt-12 md:mt-16', className)}
         >
             <svg className="w-12 h-12 md:w-14 md:h-14" viewBox="0 0 50 50" fill="none">
@@ -258,12 +284,13 @@ function TreasureMarker({ className }: { className?: string }) {
 export function TreasureMapArsenalC({ title, description, items, note }: TreasureMapArsenalCProps) {
     const sectionRef = useRef<HTMLElement>(null);
     const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
+    const isMobile = useIsMobile();
 
     return (
         <section ref={sectionRef} className="relative z-10 py-14 sm:py-16 md:py-28 lg:py-32 px-5 sm:px-6 overflow-hidden">
             <div className="relative max-w-6xl mx-auto">
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6 }}
                     className="text-center mb-10 sm:mb-12 md:mb-16"
@@ -295,7 +322,7 @@ export function TreasureMapArsenalC({ title, description, items, note }: Treasur
                 </motion.div>
 
                 <motion.div
-                    initial={{ opacity: 0 }}
+                    initial={isMobile ? { opacity: 1 } : { opacity: 0 }}
                     animate={isInView ? { opacity: 1 } : {}}
                     transition={{ duration: 0.6, delay: 0.3 }}
                     className="relative"
@@ -314,24 +341,36 @@ export function TreasureMapArsenalC({ title, description, items, note }: Treasur
                     <div className="flex flex-col items-center mt-8">
                         <TreasureMarker />
                         <motion.div
-                            initial={{ opacity: 0, y: -5 }}
+                            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: -5 }}
                             animate={isInView ? { opacity: 1, y: 0 } : {}}
-                            transition={{ duration: 0.5, delay: 3.2 }}
+                            transition={{ duration: 0.5, delay: isMobile ? 0 : 3.2 }}
                             className="mt-4"
                         >
-                            <motion.svg
-                                width="20" height="12" viewBox="0 0 20 12" fill="none"
-                                animate={{ y: [0, 3, 0] }}
-                                transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-                            >
-                                <path d="M2 2L10 10L18 2" stroke="url(#arrowGradientC)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
-                                <defs>
-                                    <linearGradient id="arrowGradientC" x1="0%" y1="0%" x2="100%" y2="0%">
-                                        <stop offset="0%" stopColor="#6eff5b" />
-                                        <stop offset="100%" stopColor="#fbbf24" />
-                                    </linearGradient>
-                                </defs>
-                            </motion.svg>
+                            {isMobile ? (
+                                <svg width="20" height="12" viewBox="0 0 20 12" fill="none">
+                                    <path d="M2 2L10 10L18 2" stroke="url(#arrowGradientC)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
+                                    <defs>
+                                        <linearGradient id="arrowGradientC" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" stopColor="#6eff5b" />
+                                            <stop offset="100%" stopColor="#fbbf24" />
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                            ) : (
+                                <motion.svg
+                                    width="20" height="12" viewBox="0 0 20 12" fill="none"
+                                    animate={{ y: [0, 3, 0] }}
+                                    transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                                >
+                                    <path d="M2 2L10 10L18 2" stroke="url(#arrowGradientC)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
+                                    <defs>
+                                        <linearGradient id="arrowGradientC" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" stopColor="#6eff5b" />
+                                            <stop offset="100%" stopColor="#fbbf24" />
+                                        </linearGradient>
+                                    </defs>
+                                </motion.svg>
+                            )}
                         </motion.div>
                     </div>
                 </motion.div>

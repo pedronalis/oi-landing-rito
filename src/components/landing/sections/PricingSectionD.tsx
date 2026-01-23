@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import type { Pricing } from '@/content/types';
 import Image from 'next/image';
 import { useAdUtmParams } from '@/hooks/useAdUtmParams';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 
 interface PricingSectionDProps {
@@ -15,6 +16,7 @@ interface PricingSectionDProps {
 
 export function PricingSectionD({ title, description, pricing }: PricingSectionDProps) {
     const { appendUtmsToUrl } = useAdUtmParams();
+    const isMobile = useIsMobile();
 
     return (
         <section className="relative py-16 sm:py-20 md:py-24 px-5 sm:px-6">
@@ -28,8 +30,8 @@ export function PricingSectionD({ title, description, pricing }: PricingSectionD
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-cream-100 text-center" style={{ fontFamily: 'Ubuntu, sans-serif' }}>
                         <span className="hidden md:inline">{title}</span>
                         <span className="md:hidden">
-                            Escolha o teu<br />
-                            nível no jogo
+                            Assine o Plano<br />
+                            Trimestral
                         </span>
                     </h2>
                     {description && (
@@ -53,7 +55,7 @@ export function PricingSectionD({ title, description, pricing }: PricingSectionD
                                         'rounded-2xl p-8 flex flex-col h-full',
                                         'bg-[#1a1a1a] border',
                                         isHighlighted ? 'border-brand-500/50' : 'border-[#2a2a2a]',
-                                        isHighlighted && 'shadow-[0_0_60px_-15px_rgba(110,255,91,0.2)]'
+                                        (isHighlighted && !isMobile) && 'shadow-[0_0_60px_-15px_rgba(110,255,91,0.2)]'
                                     )}
                                 >
                                     {/* Tier Image */}

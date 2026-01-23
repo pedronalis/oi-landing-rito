@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { ScrollReveal, StaggerContainer, StaggerItem } from '@/components/ui/ScrollReveal';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 interface TestimonialsSectionProps {
   title: string;
@@ -188,7 +189,7 @@ function TestimonialsModal({
 
               {/* Navegação e Contador - Mobile: Barra Inferior / Desktop: Laterais + Contador Isolado */}
               <div className="absolute bottom-4 left-0 right-0 z-30 flex items-center justify-center gap-4 px-4 pointer-events-none md:contents">
-                
+
                 {/* Botão Anterior */}
                 {items.length > 1 && (
                   <button
@@ -259,8 +260,9 @@ function TestimonialsModal({
 export function TestimonialsSection({ title }: TestimonialsSectionProps) {
   const shouldReduceMotion = useReducedMotion();
   const sectionRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
-  
+
   // Estado para modal
   const [modalOpen, setModalOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -277,12 +279,12 @@ export function TestimonialsSection({ title }: TestimonialsSectionProps) {
   };
 
   // Componente de Card de Depoimento - Layout Masonry
-  const TestimonialCard = ({ 
-    testimonial, 
-    index, 
-    isMobile = false 
-  }: { 
-    testimonial: Testimonial; 
+  const TestimonialCard = ({
+    testimonial,
+    index,
+    isMobile = false
+  }: {
+    testimonial: Testimonial;
     index: number;
     isMobile?: boolean;
   }) => {
@@ -292,7 +294,7 @@ export function TestimonialsSection({ title }: TestimonialsSectionProps) {
     return (
       <motion.div
         ref={cardRef}
-        initial="hidden"
+        initial={isMobile ? "visible" : "hidden"}
         animate={cardInView ? 'visible' : 'hidden'}
         variants={{
           hidden: {
@@ -311,7 +313,7 @@ export function TestimonialsSection({ title }: TestimonialsSectionProps) {
             },
           },
         }}
-          className={cn(
+        className={cn(
           'w-full',
           !isMobile && 'break-inside-avoid mb-6',
           isMobile && 'shrink-0'
@@ -324,19 +326,19 @@ export function TestimonialsSection({ title }: TestimonialsSectionProps) {
         {/* Wrapper com Borda Gradiente Animada */}
         <motion.div
           whileHover={
-            shouldReduceMotion
+            shouldReduceMotion || isMobile
               ? {}
               : {
-                  scale: 1.01,
-                  transition: {
-                    duration: 0.3,
-                    ease: [0.22, 1, 0.36, 1],
-                  },
-                }
+                scale: 1.01,
+                transition: {
+                  duration: 0.3,
+                  ease: [0.22, 1, 0.36, 1],
+                },
+              }
           }
           className={cn(
             'w-full rounded-xl',
-            'animate-premium-border',
+            isMobile ? '' : 'animate-premium-border',
             'group',
             'cursor-pointer'
           )}
@@ -355,7 +357,7 @@ export function TestimonialsSection({ title }: TestimonialsSectionProps) {
                 width={1200}
                 height={1600}
                 className="object-contain w-full h-auto"
-                style={{ 
+                style={{
                   maxWidth: isMobile ? '85vw' : '100%',
                   height: 'auto',
                   display: 'block'
@@ -391,7 +393,7 @@ export function TestimonialsSection({ title }: TestimonialsSectionProps) {
               - Desktop (≥ 1024px): 3 colunas 
           */}
           <StaggerContainer staggerDelay={0.08}>
-            <div 
+            <div
               className="gap-4 md:gap-6"
               style={{
                 columnCount: 1, // Default mobile
@@ -406,15 +408,15 @@ export function TestimonialsSection({ title }: TestimonialsSectionProps) {
                   .gap-4 { column-count: 3 !important; }
                 }
               `}</style>
-              
+
               {testimonials.map((testimonial, index) => (
                 <StaggerItem key={testimonial.id}>
-                  <TestimonialCard 
-                    testimonial={testimonial} 
-                    index={index} 
+                  <TestimonialCard
+                    testimonial={testimonial}
+                    index={index}
                     // Passar isMobile apenas para ajustes finos se necessário, 
                     // mas o layout agora é controlado por CSS
-                    isMobile={false} 
+                    isMobile={false}
                   />
                 </StaggerItem>
               ))}
@@ -423,12 +425,12 @@ export function TestimonialsSection({ title }: TestimonialsSectionProps) {
         </div>
       </section>
 
-      <TestimonialsModal 
-        open={modalOpen} 
-        index={activeIndex} 
+      <TestimonialsModal
+        open={modalOpen}
+        index={activeIndex}
         setIndex={setActiveIndex}
-        onClose={closeModal} 
-        items={testimonials} 
+        onClose={closeModal}
+        items={testimonials}
       />
     </>
   );

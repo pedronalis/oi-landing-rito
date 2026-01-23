@@ -3,6 +3,7 @@
 import { cn } from '@/lib/utils';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 interface GradientOrbProps {
   className?: string;
@@ -97,14 +98,15 @@ interface GradientOrbsProps {
 /**
  * Detecta se deve usar versão simplificada
  */
+/**
+ * Detecta se deve usar versão simplificada
+ */
 function useSimplifiedMode(): boolean {
   const [simplified, setSimplified] = useState(true); // Assume simplificado por padrão (SSR safe)
   const shouldReduceMotion = useReducedMotion();
+  const isMobileViewport = useIsMobile();
 
   useEffect(() => {
-    // Verifica se é mobile
-    const isMobile = window.innerWidth < 768;
-
     // Verifica cores do CPU
     const cores = navigator.hardwareConcurrency || 2;
     const isLowEnd = cores <= 4;
@@ -113,8 +115,8 @@ function useSimplifiedMode(): boolean {
     const deviceMemory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
     const isLowMemory = deviceMemory && deviceMemory < 4;
 
-    setSimplified(isMobile || isLowEnd || isLowMemory || !!shouldReduceMotion);
-  }, [shouldReduceMotion]);
+    setSimplified(isMobileViewport || isLowEnd || isLowMemory || !!shouldReduceMotion);
+  }, [shouldReduceMotion, isMobileViewport]);
 
   return simplified;
 }
