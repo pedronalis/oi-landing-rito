@@ -26,11 +26,7 @@ export function PricingSectionD({ title, description, pricing }: PricingSectionD
                 {/* Header - Landing C: título MAIOR, description em ITÁLICO alinhado à DIREITA abaixo de "jogo" */}
                 <div className="mb-12 sm:mb-16 md:mb-20">
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-cream-100 text-center" style={{ fontFamily: 'Ubuntu, sans-serif' }}>
-                        <span className="hidden md:inline">{title}</span>
-                        <span className="md:hidden">
-                            Escolha o teu<br />
-                            nível no jogo
-                        </span>
+                        {title}
                     </h2>
                     {description && (
                         <div className="flex justify-center mt-2 ml-0 sm:ml-[380px]">
