@@ -4,6 +4,7 @@ import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { useRef } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 interface ExperienceCardProps {
   name: string;
@@ -21,6 +22,7 @@ export function ExperienceCard({
   colorVariant = 'brand',
 }: ExperienceCardProps) {
   const shouldReduceMotion = useReducedMotion();
+  const isMobile = useIsMobile();
   const cardRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(cardRef, { once: true, amount: 0.2 });
 
@@ -40,8 +42,8 @@ export function ExperienceCard({
   return (
     <motion.div
       ref={cardRef}
-      initial="hidden"
-      animate={isInView ? 'visible' : 'hidden'}
+      initial={isMobile ? "visible" : "hidden"}
+      animate={isInView ? "visible" : "hidden"}
       variants={{
         hidden: {
           opacity: 0,
@@ -67,17 +69,17 @@ export function ExperienceCard({
           shouldReduceMotion
             ? {}
             : {
-                y: -12,
-                scale: 1.02,
-                transition: {
-                  duration: 0.35,
-                  ease: [0.22, 1, 0.36, 1],
-                },
-              }
+              y: -12,
+              scale: 1.02,
+              transition: {
+                duration: 0.35,
+                ease: [0.22, 1, 0.36, 1],
+              },
+            }
         }
         className={cn(
           'h-full rounded-2xl',
-          'animate-premium-border',
+          isMobile ? '' : 'animate-premium-border',
           'group',
           'transition-all duration-500'
         )}
@@ -97,9 +99,9 @@ export function ExperienceCard({
                 shouldReduceMotion
                   ? {}
                   : {
-                      scale: 1.08,
-                      transition: { duration: 0.5, ease: 'easeOut' },
-                    }
+                    scale: 1.08,
+                    transition: { duration: 0.5, ease: 'easeOut' },
+                  }
               }
             >
               <Image
@@ -130,13 +132,13 @@ export function ExperienceCard({
               animate={
                 isInView
                   ? {
-                      opacity: 1,
-                      y: 0,
-                      transition: {
-                        delay: index * 0.1 + 0.2,
-                        duration: 0.4,
-                      },
-                    }
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      delay: index * 0.1 + 0.2,
+                      duration: 0.4,
+                    },
+                  }
                   : {}
               }
               className={cn(
@@ -154,13 +156,13 @@ export function ExperienceCard({
               animate={
                 isInView
                   ? {
-                      opacity: 1,
-                      y: 0,
-                      transition: {
-                        delay: index * 0.1 + 0.3,
-                        duration: 0.4,
-                      },
-                    }
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      delay: index * 0.1 + 0.3,
+                      duration: 0.4,
+                    },
+                  }
                   : {}
               }
               className="text-cream-300 text-sm md:text-base leading-relaxed flex-1"

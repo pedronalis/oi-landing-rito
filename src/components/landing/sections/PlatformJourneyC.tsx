@@ -4,6 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { PremiumIcon } from '@/components/ui/PremiumIcon';
 import { cn } from '@/lib/utils';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 interface Feature {
     number: string;
@@ -22,50 +23,53 @@ function JourneyCard({ feature, index }: { feature: Feature; index: number }) {
     const cardRef = useRef<HTMLDivElement>(null);
     const isInView = useInView(cardRef, { once: true, amount: 0.3 });
     const isLeft = index % 2 === 0;
+    const isMobile = useIsMobile();
 
     return (
         <motion.div
             ref={cardRef}
-            initial={{ opacity: 0, y: 40 }}
+            initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.6, delay: isMobile ? 0 : index * 0.15, ease: [0.22, 1, 0.36, 1] }}
             className="relative group h-full"
         >
             <motion.div
-                whileHover={{ y: -4, transition: { duration: 0.3 } }}
+                whileHover={isMobile ? {} : { y: -4, transition: { duration: 0.3 } }}
                 className={cn(
                     'h-full rounded-2xl transition-all duration-500 border',
                     isLeft
-                        ? 'border-brand-500/30 group-hover:border-brand-500/60 bg-transparent'
-                        : 'border-[#b388ff]/30 group-hover:border-[#b388ff]/60 bg-transparent'
+                        ? `border-brand-500/30 ${isMobile ? '' : 'group-hover:border-brand-500/60'} bg-transparent`
+                        : `border-[#b388ff]/30 ${isMobile ? '' : 'group-hover:border-[#b388ff]/60'} bg-transparent`
                 )}
             >
                 <div
                     className={cn(
                         'h-full flex flex-col rounded-2xl overflow-hidden',
                         'bg-[#151515]/80 backdrop-blur-xl',
-                        'group-hover:shadow-2xl transition-shadow duration-500',
-                        isLeft ? 'group-hover:shadow-brand-500/10' : 'group-hover:shadow-[#b388ff]/10'
+                        'transition-shadow duration-500',
+                        isMobile ? '' : 'group-hover:shadow-2xl',
+                        isLeft ? (isMobile ? '' : 'group-hover:shadow-brand-500/10') : (isMobile ? '' : 'group-hover:shadow-[#b388ff]/10')
                     )}
                 >
                     <div className="relative z-10 flex items-start gap-4 sm:gap-5 p-5 sm:p-6 md:p-8">
                         <motion.div
-                            initial={{ scale: 0.8, opacity: 0 }}
+                            initial={isMobile ? { opacity: 1, scale: 1 } : { scale: 0.8, opacity: 0 }}
                             animate={isInView ? { scale: 1, opacity: 1 } : {}}
-                            transition={{ duration: 0.5, delay: index * 0.15 + 0.2 }}
+                            transition={{ duration: 0.5, delay: isMobile ? 0 : index * 0.15 + 0.2 }}
                             className={cn(
                                 'relative shrink-0 w-12 h-12 sm:w-14 sm:h-14 md:w-20 md:h-20 rounded-xl flex items-center justify-center',
                                 'border transition-all duration-500',
                                 isLeft
-                                    ? 'bg-brand-500/5 border-brand-500/20 group-hover:border-brand-500/50'
-                                    : 'bg-[#b388ff]/5 border-[#b388ff]/20 group-hover:border-[#b388ff]/50'
+                                    ? `bg-brand-500/5 border-brand-500/20 ${isMobile ? '' : 'group-hover:border-brand-500/50'}`
+                                    : `bg-[#b388ff]/5 border-[#b388ff]/20 ${isMobile ? '' : 'group-hover:border-[#b388ff]/50'}`
                             )}
                         >
                             <PremiumIcon
                                 type={feature.icon as any}
                                 size="lg"
                                 className={cn(
-                                    'transition-all duration-300 group-hover:scale-110',
+                                    'transition-all duration-300',
+                                    isMobile ? '' : 'group-hover:scale-110',
                                     isLeft ? 'text-brand-400' : 'text-accent-400'
                                 )}
                             />
@@ -89,6 +93,7 @@ function JourneyCard({ feature, index }: { feature: Feature; index: number }) {
 export function PlatformJourneyC({ title, description, features }: PlatformJourneyCProps) {
     const sectionRef = useRef<HTMLElement>(null);
     const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
+    const isMobile = useIsMobile();
 
     return (
         <section
@@ -96,70 +101,72 @@ export function PlatformJourneyC({ title, description, features }: PlatformJourn
             className="relative z-10 py-14 sm:py-16 md:py-28 lg:py-32 px-5 sm:px-6 overflow-hidden"
         >
             {/* Animated orbs - com animação de movimento */}
-            <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                {/* Bola 1 - Verde (Brand) */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                    transition={{ duration: 1.2, delay: 0.3 }}
-                    className="absolute top-1/4 left-1/4 w-96 h-96 md:w-[500px] md:h-[500px] rounded-full"
-                    style={{
-                        background: 'radial-gradient(circle, rgba(110, 255, 91, 0.15) 0%, rgba(110, 255, 91, 0.05) 40%, transparent 70%)',
-                        filter: 'blur(120px)',
-                    }}
-                >
+            {!isMobile && (
+                <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                    {/* Bola 1 - Verde (Brand) */}
                     <motion.div
-                        animate={{
-                            x: [0, 30, -20, 0],
-                            y: [0, -40, 20, 0],
-                            scale: [1, 1.25, 0.85, 1],
-                        }}
-                        transition={{
-                            duration: 20,
-                            repeat: Infinity,
-                            ease: 'easeInOut',
-                        }}
-                        className="absolute inset-0 rounded-full"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                        transition={{ duration: 1.2, delay: 0.3 }}
+                        className="absolute top-1/4 left-1/4 w-96 h-96 md:w-[500px] md:h-[500px] rounded-full"
                         style={{
-                            background: 'radial-gradient(circle, rgba(110, 255, 91, 0.2) 0%, transparent 60%)',
-                            filter: 'blur(90px)',
+                            background: 'radial-gradient(circle, rgba(110, 255, 91, 0.15) 0%, rgba(110, 255, 91, 0.05) 40%, transparent 70%)',
+                            filter: 'blur(120px)',
                         }}
-                    />
-                </motion.div>
-                {/* Bola 2 - Roxo (Accent) */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                    transition={{ duration: 1.2, delay: 0.5 }}
-                    className="absolute bottom-[5%] right-1/4 w-96 h-96 md:w-[500px] md:h-[500px] rounded-full"
-                    style={{
-                        background: 'radial-gradient(circle, rgba(179, 136, 255, 0.15) 0%, rgba(179, 136, 255, 0.05) 40%, transparent 70%)',
-                        filter: 'blur(120px)',
-                    }}
-                >
+                    >
+                        <motion.div
+                            animate={{
+                                x: [0, 30, -20, 0],
+                                y: [0, -40, 20, 0],
+                                scale: [1, 1.25, 0.85, 1],
+                            }}
+                            transition={{
+                                duration: 20,
+                                repeat: Infinity,
+                                ease: 'easeInOut',
+                            }}
+                            className="absolute inset-0 rounded-full"
+                            style={{
+                                background: 'radial-gradient(circle, rgba(110, 255, 91, 0.2) 0%, transparent 60%)',
+                                filter: 'blur(90px)',
+                            }}
+                        />
+                    </motion.div>
+                    {/* Bola 2 - Roxo (Accent) */}
                     <motion.div
-                        animate={{
-                            x: [0, -25, 35, 0],
-                            y: [0, 30, -25, 0],
-                            scale: [1, 0.8, 1.3, 1],
-                        }}
-                        transition={{
-                            duration: 25,
-                            repeat: Infinity,
-                            ease: 'easeInOut',
-                        }}
-                        className="absolute inset-0 rounded-full"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                        transition={{ duration: 1.2, delay: 0.5 }}
+                        className="absolute bottom-[5%] right-1/4 w-96 h-96 md:w-[500px] md:h-[500px] rounded-full"
                         style={{
-                            background: 'radial-gradient(circle, rgba(179, 136, 255, 0.2) 0%, transparent 60%)',
-                            filter: 'blur(90px)',
+                            background: 'radial-gradient(circle, rgba(179, 136, 255, 0.15) 0%, rgba(179, 136, 255, 0.05) 40%, transparent 70%)',
+                            filter: 'blur(120px)',
                         }}
-                    />
-                </motion.div>
-            </div>
+                    >
+                        <motion.div
+                            animate={{
+                                x: [0, -25, 35, 0],
+                                y: [0, 30, -25, 0],
+                                scale: [1, 0.8, 1.3, 1],
+                            }}
+                            transition={{
+                                duration: 25,
+                                repeat: Infinity,
+                                ease: 'easeInOut',
+                            }}
+                            className="absolute inset-0 rounded-full"
+                            style={{
+                                background: 'radial-gradient(circle, rgba(179, 136, 255, 0.2) 0%, transparent 60%)',
+                                filter: 'blur(90px)',
+                            }}
+                        />
+                    </motion.div>
+                </div>
+            )}
 
             <div className="relative max-w-6xl mx-auto">
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={isMobile ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6 }}
                     className="text-center mb-10 sm:mb-12 md:mb-20"

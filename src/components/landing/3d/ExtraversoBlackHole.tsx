@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 interface Particle {
   x: number;
@@ -44,11 +45,17 @@ export default function ExtraversoBlackHole() {
   const particlesRef = useRef<Particle[]>([]);
   const animationRef = useRef<number>(0);
   const [shouldRender, setShouldRender] = useState(false);
+  const isMobile = useIsMobile(); // Use hook directly
 
   // Detecta capacidade do dispositivo apenas no cliente
   useEffect(() => {
+    // Force false on mobile
+    if (isMobile) {
+      setShouldRender(false);
+      return;
+    }
     setShouldRender(!isLowEndDevice());
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
     // Não executa animação em dispositivos low-end

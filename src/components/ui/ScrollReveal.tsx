@@ -4,6 +4,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion
 import { cn } from '@/lib/utils';
 import type { ReactNode } from 'react';
 import { useRef } from 'react';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -28,9 +29,10 @@ export function ScrollReveal({
   parallaxIntensity = 0.1,
 }: ScrollRevealProps) {
   const shouldReduceMotion = useReducedMotion();
+  const isMobile = useIsMobile();
   const ref = useRef<HTMLDivElement>(null);
 
-  // Parallax scroll effect
+  // Parallax scroll effect - DISABLED on mobile
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start end', 'end start'],
@@ -39,16 +41,16 @@ export function ScrollReveal({
   const parallaxY = useTransform(
     scrollYProgress,
     [0, 1],
-    parallax && !shouldReduceMotion ? [50 * parallaxIntensity, -50 * parallaxIntensity] : [0, 0]
+    (parallax && !shouldReduceMotion && !isMobile) ? [50 * parallaxIntensity, -50 * parallaxIntensity] : [0, 0]
   );
 
   // Animações simplificadas para melhor performance
   const variants = {
     hidden: {
-      opacity: 0,
-      y: shouldReduceMotion ? 0 : (direction === 'up' ? 20 : direction === 'down' ? -20 : 0),
-      x: shouldReduceMotion ? 0 : (direction === 'left' ? 20 : direction === 'right' ? -20 : 0),
-      scale: withScale && !shouldReduceMotion ? 0.98 : 1,
+      opacity: isMobile ? 1 : 0, // Mobile starts visible
+      y: (shouldReduceMotion || isMobile) ? 0 : (direction === 'up' ? 20 : direction === 'down' ? -20 : 0),
+      x: (shouldReduceMotion || isMobile) ? 0 : (direction === 'left' ? 20 : direction === 'right' ? -20 : 0),
+      scale: (withScale && !shouldReduceMotion && !isMobile) ? 0.98 : 1,
     },
     visible: {
       opacity: 1,
@@ -61,16 +63,16 @@ export function ScrollReveal({
   return (
     <motion.div
       ref={ref}
-      initial="hidden"
+      initial={isMobile ? "visible" : "hidden"} // Force visible on mobile
       whileInView="visible"
       viewport={{ once: true, margin: '-50px' }}
       transition={{
-        duration: shouldReduceMotion ? 0.2 : 0.4,
-        delay: Math.min(delay, 0.2), // Cap delay para melhor UX
+        duration: (shouldReduceMotion || isMobile) ? 0 : 0.4, // Instant on mobile
+        delay: (isMobile) ? 0 : Math.min(delay, 0.2), // No delay on mobile
         ease: 'easeOut',
       }}
       variants={variants}
-      style={parallax && !shouldReduceMotion ? { y: parallaxY } : undefined}
+      style={(parallax && !shouldReduceMotion && !isMobile) ? { y: parallaxY } : undefined}
       className={cn(className)}
     >
       {children}
@@ -96,21 +98,22 @@ export function StaggerContainer({
   initialDelay = 0,
 }: StaggerContainerProps) {
   const shouldReduceMotion = useReducedMotion();
+  const isMobile = useIsMobile();
 
   const containerVariants = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: isMobile ? 1 : 0 },
     visible: {
       opacity: 1,
       transition: {
-        delayChildren: Math.min(initialDelay, 0.1),
-        staggerChildren: shouldReduceMotion ? 0 : staggerDelay,
+        delayChildren: isMobile ? 0 : Math.min(initialDelay, 0.1),
+        staggerChildren: (shouldReduceMotion || isMobile) ? 0 : staggerDelay,
       },
     },
   };
 
   return (
     <motion.div
-      initial="hidden"
+      initial={isMobile ? "visible" : "hidden"}
       whileInView="visible"
       viewport={{ once: true, margin: '-30px' }}
       variants={containerVariants}
@@ -138,13 +141,14 @@ export function StaggerItem({
   withScale = false, // Mudado para false por padrão
 }: StaggerItemProps) {
   const shouldReduceMotion = useReducedMotion();
+  const isMobile = useIsMobile();
 
   const itemVariants = {
     hidden: {
-      opacity: 0,
-      y: shouldReduceMotion ? 0 : (direction === 'up' ? 15 : direction === 'down' ? -15 : 0),
-      x: shouldReduceMotion ? 0 : (direction === 'left' ? 15 : direction === 'right' ? -15 : 0),
-      scale: withScale && !shouldReduceMotion ? 0.98 : 1,
+      opacity: isMobile ? 1 : 0,
+      y: (shouldReduceMotion || isMobile) ? 0 : (direction === 'up' ? 15 : direction === 'down' ? -15 : 0),
+      x: (shouldReduceMotion || isMobile) ? 0 : (direction === 'left' ? 15 : direction === 'right' ? -15 : 0),
+      scale: (withScale && !shouldReduceMotion && !isMobile) ? 0.98 : 1,
     },
     visible: {
       opacity: 1,
@@ -152,7 +156,7 @@ export function StaggerItem({
       x: 0,
       scale: 1,
       transition: {
-        duration: shouldReduceMotion ? 0.15 : 0.3,
+        duration: (shouldReduceMotion || isMobile) ? 0 : 0.3, // Instant
         ease: [0.25, 0.1, 0.25, 1] as const, // cubic-bezier easeOut
       },
     },

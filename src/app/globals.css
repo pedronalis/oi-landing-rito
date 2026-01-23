@@ -834,41 +834,40 @@ textarea,
    ============================================ */
 
 /* Desabilita animações contínuas em mobile para performance */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
 
-  .float-slow,
-  .float-slow-reverse {
-    animation: none !important;
+  /* Force instant transitions/animations for almost everything */
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
   }
 
-  .animate-shimmer {
-    animation: none !important;
-  }
-
-  .animate-pulse-glow {
-    animation: none !important;
-  }
-
+  /* Disable specific complex animations explicitly */
+  .animate-pulse,
+  .animate-bounce,
+  .animate-spin,
+  .animate-ping,
+  .animate-border-glow,
+  .animate-premium-border,
   .animate-gradient-border,
-  .animate-premium-border {
-    animation: none !important;
-  }
-
-  .animate-border-glow {
-    animation: none !important;
-  }
-
+  .animate-shimmer,
+  .animate-number-pulse,
+  .animate-blackhole-float,
   .animate-blackhole-glow,
-  .animate-blackhole-float {
-    animation: none !important;
-  }
-
+  .float-slow,
+  .float-slow-reverse,
   .animate-particle-1,
   .animate-particle-2,
   .animate-particle-3,
   .animate-particle-4,
   .animate-particle-5 {
     animation: none !important;
+    transition: none !important;
   }
 }
 

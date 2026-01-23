@@ -15,6 +15,7 @@ import { ScrollReveal, StaggerContainer, StaggerItem } from '@/components/ui/Scr
 import { ExperienceCard } from './sections/ExperienceCard';
 import { PremiumIcon } from '@/components/ui/PremiumIcon';
 import { cn } from '@/lib/utils';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 // Dynamic imports for heavy components
 const ExtraversoBlackHole = dynamic(() => import('./3d/ExtraversoBlackHole'), {
@@ -62,6 +63,7 @@ const PricingSectionD = dynamic(
 
 export function RitoLandingPage() {
     const { hero, sections, pricing } = landingDContent;
+    const isMobile = useIsMobile();
 
     const scrollToPricing = () => {
         const pricingSection = document.getElementById('pricing-section');
@@ -117,6 +119,7 @@ export function RitoLandingPage() {
                         <StaggerItem className="pt-4">
                             <VimeoEmbed videoId="1152211678" title="ordem-pv1" />
                         </StaggerItem>
+
 
 
                     </StaggerContainer>
@@ -236,14 +239,14 @@ export function RitoLandingPage() {
                                             'shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]',
                                             'shadow-lg shadow-black/30',
                                             'transition-all duration-500 ease-out',
-                                            'hover:border-red-500/30 hover:shadow-red-900/20 hover:-translate-y-1'
+                                            isMobile ? '' : 'hover:border-red-500/30 hover:shadow-red-900/20 hover:-translate-y-1'
                                         )}
                                     >
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/5 rounded-full blur-3xl pointer-events-none" />
                                         <h3 className="relative z-10 text-xl md:text-2xl font-bold mb-8 flex items-center gap-3 text-cream-300">
                                             <span className="relative flex items-center justify-center">
                                                 <span className="w-3 h-3 rounded-full bg-red-500" />
-                                                <span className="absolute w-3 h-3 rounded-full bg-red-500/50 animate-ping" />
+                                                {!isMobile && <span className="absolute w-3 h-3 rounded-full bg-red-500/50 animate-ping" />}
                                             </span>
                                             <span>{section.without.title.replace('🔴 ', '')}</span>
                                         </h3>
@@ -251,7 +254,10 @@ export function RitoLandingPage() {
                                             {section.without.items.map((item, index) => (
                                                 <StaggerItem key={index}>
                                                     <div className="flex items-start gap-3 mb-4 group">
-                                                        <div className="shrink-0 mt-1 p-1 rounded-md bg-red-500/10 group-hover:bg-red-500/20 transition-colors">
+                                                        <div className={cn(
+                                                            "shrink-0 mt-1 p-1 rounded-md bg-red-500/10 transition-colors",
+                                                            isMobile ? "" : "group-hover:bg-red-500/20"
+                                                        )}>
                                                             <PremiumIcon type="x" size="sm" color="red" />
                                                         </div>
                                                         <span className="text-cream-400/80 text-base md:text-lg leading-relaxed">
@@ -270,9 +276,9 @@ export function RitoLandingPage() {
                                         className={cn(
                                             'relative h-full rounded-2xl',
                                             'p-[2px] bg-linear-to-br from-brand-400/60 via-brand-500/40 to-accent-400/30',
-                                            'animate-border-glow',
+                                            isMobile ? '' : 'animate-border-glow',
                                             'transition-all duration-500 ease-out',
-                                            'hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(110,255,91,0.15)]'
+                                            isMobile ? '' : 'hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(110,255,91,0.15)]'
                                         )}
                                     >
                                         <div
@@ -291,7 +297,7 @@ export function RitoLandingPage() {
                                             <h3 className="relative z-10 text-xl md:text-2xl font-bold mb-8 flex items-center gap-3 text-cream-200 pt-2">
                                                 <span className="relative flex items-center justify-center">
                                                     <span className="w-3 h-3 rounded-full bg-brand-400" />
-                                                    <span className="absolute w-3 h-3 rounded-full bg-brand-400/50 animate-ping" />
+                                                    {!isMobile && <span className="absolute w-3 h-3 rounded-full bg-brand-400/50 animate-ping" />}
                                                 </span>
                                                 <span>{section.with.title.replace('🟢 ', '')}</span>
                                             </h3>
@@ -299,7 +305,10 @@ export function RitoLandingPage() {
                                                 {section.with.items.map((item, index) => (
                                                     <StaggerItem key={index}>
                                                         <div className="flex items-start gap-3 mb-4 group">
-                                                            <div className="shrink-0 mt-1 p-1 rounded-md bg-brand-500/15 group-hover:bg-brand-500/25 transition-colors">
+                                                            <div className={cn(
+                                                                "shrink-0 mt-1 p-1 rounded-md bg-brand-500/15 transition-colors",
+                                                                isMobile ? "" : "group-hover:bg-brand-500/25"
+                                                            )}>
                                                                 <PremiumIcon type="check" size="sm" color="brand" />
                                                             </div>
                                                             <span className="text-cream-300 text-base md:text-lg leading-relaxed">
@@ -412,7 +421,7 @@ export function RitoLandingPage() {
                                             'shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]',
                                             'shadow-lg shadow-black/30',
                                             'transition-all duration-500 ease-out',
-                                            'hover:border-cream-500/20 hover:-translate-y-1'
+                                            isMobile ? '' : 'hover:border-cream-500/20 hover:-translate-y-1'
                                         )}
                                     >
                                         <h3 className="text-lg md:text-xl font-semibold mb-6 text-cream-400 flex items-center gap-2">
@@ -426,7 +435,7 @@ export function RitoLandingPage() {
                                                             'shrink-0 w-8 h-8 flex items-center justify-center rounded-lg',
                                                             'bg-linear-to-br from-cream-500/10 to-transparent',
                                                             'backdrop-blur-sm border border-cream-500/10',
-                                                            'group-hover:border-cream-500/20 group-hover:from-cream-500/15',
+                                                            isMobile ? '' : 'group-hover:border-cream-500/20 group-hover:from-cream-500/15',
                                                             'transition-all duration-300',
                                                             'text-lg'
                                                         )}
@@ -446,9 +455,9 @@ export function RitoLandingPage() {
                                         className={cn(
                                             'relative h-full rounded-2xl',
                                             'p-[2px] bg-linear-to-br from-brand-400/60 via-brand-500/40 to-accent-400/30',
-                                            'animate-border-glow',
+                                            isMobile ? '' : 'animate-border-glow',
                                             'transition-all duration-500 ease-out',
-                                            'hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(110,255,91,0.15)]'
+                                            isMobile ? '' : 'hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(110,255,91,0.15)]'
                                         )}
                                     >
                                         <div
@@ -472,8 +481,8 @@ export function RitoLandingPage() {
                                                                 'shrink-0 w-8 h-8 flex items-center justify-center rounded-lg',
                                                                 'bg-linear-to-br from-brand-500/20 to-brand-400/5',
                                                                 'backdrop-blur-sm border border-brand-400/20',
-                                                                'group-hover:border-brand-400/40 group-hover:from-brand-500/30',
-                                                                'group-hover:shadow-[0_0_12px_rgba(110,255,91,0.2)]',
+                                                                isMobile ? '' : 'group-hover:border-brand-400/40 group-hover:from-brand-500/30',
+                                                                isMobile ? '' : 'group-hover:shadow-[0_0_12px_rgba(110,255,91,0.2)]',
                                                                 'transition-all duration-300',
                                                                 'text-lg'
                                                             )}
@@ -496,7 +505,7 @@ export function RitoLandingPage() {
                                         className={cn(
                                             'relative rounded-2xl overflow-hidden',
                                             'p-[2px] bg-linear-to-r from-brand-400/50 via-accent-400/40 to-brand-400/50',
-                                            'animate-gradient-border'
+                                            isMobile ? '' : 'animate-gradient-border'
                                         )}
                                     >
                                         <div

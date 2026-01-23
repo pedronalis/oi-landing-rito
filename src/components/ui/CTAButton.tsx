@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { motion, useReducedMotion, useInView } from 'framer-motion';
 import type { ReactNode } from 'react';
 import { useRef } from 'react';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 interface CTAButtonProps {
   children: ReactNode;
@@ -31,6 +32,7 @@ export function CTAButton({
   rel,
 }: CTAButtonProps) {
   const shouldReduceMotion = useReducedMotion();
+  const isMobile = useIsMobile();
   const ref = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
   const isInView = useInView(ref as React.RefObject<Element>, { once: false, amount: 0.5 });
 
@@ -54,8 +56,8 @@ export function CTAButton({
       'border border-brand-400/40',
       // Text
       'text-brand-400',
-      // Hover
-      'hover:bg-brand-500/30 hover:border-brand-400/60 hover:text-brand-300',
+      // Hover - disabled visual hover change on mobile
+      isMobile ? '' : 'hover:bg-brand-500/30 hover:border-brand-400/60 hover:text-brand-300',
       // Shadow
       'shadow-lg shadow-brand-500/10'
     ),
@@ -63,21 +65,21 @@ export function CTAButton({
       'bg-accent-500/20 backdrop-blur-md',
       'border border-accent-400/40',
       'text-accent-400',
-      'hover:bg-accent-500/30 hover:border-accent-400/60'
+      isMobile ? '' : 'hover:bg-accent-500/30 hover:border-accent-400/60'
     ),
     outline: cn(
       'bg-white/5 backdrop-blur-md',
       'border border-white/20',
       'text-cream-200',
-      'hover:bg-white/10 hover:border-white/30'
+      isMobile ? '' : 'hover:bg-white/10 hover:border-white/30'
     ),
   };
 
-  const glowClasses = withGlow && variant === 'primary' 
-    ? 'shadow-[0_0_12px_rgba(110,255,91,0.08),0_0_24px_rgba(110,255,91,0.03)]' 
+  const glowClasses = withGlow && variant === 'primary' && !isMobile
+    ? 'shadow-[0_0_12px_rgba(110,255,91,0.08),0_0_24px_rgba(110,255,91,0.03)]'
     : '';
 
-  const pulseClasses = withPulse && isInView && !shouldReduceMotion
+  const pulseClasses = withPulse && isInView && !shouldReduceMotion && !isMobile
     ? 'animate-pulse-glow'
     : '';
 
@@ -91,8 +93,8 @@ export function CTAButton({
   );
 
   const motionProps = {
-    whileHover: shouldReduceMotion ? {} : { scale: 1.02, y: -1 },
-    whileTap: shouldReduceMotion ? {} : { scale: 0.98 },
+    whileHover: (shouldReduceMotion || isMobile) ? {} : { scale: 1.02, y: -1 },
+    whileTap: (shouldReduceMotion || isMobile) ? {} : { scale: 0.98 },
     transition: { type: 'spring' as const, stiffness: 400, damping: 20 },
   };
 
