@@ -11,7 +11,7 @@ interface SplitHeroProps {
   headline: React.ReactNode;
   subtitle: string;
   videoLabel: string;
-  ctaLabel: string;
+  ctaLabel?: string;
   onCtaClick: () => void;
 }
 
@@ -75,20 +75,22 @@ export function SplitHero({
             </p>
 
             {/* CTA Button + Badges */}
-            <div className="flex flex-col items-center lg:items-start space-y-4">
-              <CTAButton
-                withGlow
-                withPulse
-                variant="primary"
-                className="text-lg md:text-xl px-10 py-5"
-                onClick={onCtaClick}
-              >
-                {ctaLabel}
-              </CTAButton>
+            {ctaLabel && (
+              <div className="flex flex-col items-center lg:items-start space-y-4">
+                <CTAButton
+                  withGlow
+                  withPulse
+                  variant="primary"
+                  className="text-lg md:text-xl px-10 py-5"
+                  onClick={onCtaClick}
+                >
+                  {ctaLabel}
+                </CTAButton>
 
-              {/* Premium badges - below the button */}
-              <CTAHintBadges items={['Multiplicar ROI', 'Ganhar Tempo', 'Saúde Mental']} />
-            </div>
+                {/* Premium badges - below the button */}
+                <CTAHintBadges items={['Multiplicar ROI', 'Ganhar Tempo', 'Saúde Mental']} />
+              </div>
+            )}
           </motion.div>
 
           {/* Right side - Video */}

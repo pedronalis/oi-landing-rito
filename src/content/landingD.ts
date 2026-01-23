@@ -14,8 +14,7 @@ export const landingDContent: LandingContent = {
     title: 'Crie produtos INÉDITOS e altamente lucrativos em 48 horas e assuma o trono de profissional "foda" do seu nicho.',
     subtitle:
       'O processo é simples, o ROI é brutal — Isso é o atalho que parece trapaça, criando ofertas que ninguém jamais viu.',
-    primaryCtaLabel: 'QUERO ENTRAR PRA ORDEM',
-    secondaryHint: '⤴ Multiplicar ROI + Tempo + Saúde Mental',
+
     heroVideoLabel: 'VIDEO',
   },
   sections: [
@@ -482,7 +481,7 @@ export const landingDContent: LandingContent = {
         priceNote: 'Apenas plano Trimestral',
         priceSubnote: 'à vista no pix ou em 3x sem juros no cartão',
         ctaLabel: 'QUERO ENTRAR PRA ORDEM',
-        checkoutUrl: 'https://chk.eduzz.com/797777J49E',
+        checkoutUrl: 'https://chk.eduzz.com/797777J49E?utm_source=meta',
         highlighted: true,
       },
     ],

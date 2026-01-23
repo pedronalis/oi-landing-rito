@@ -107,20 +107,22 @@ export function LandingA() {
             </StaggerItem>
 
             {/* CTA */}
-            <StaggerItem className="pt-4">
-              <div className="space-y-5">
-                <CTAButton
-                  withGlow
-                  withPulse
-                  variant="primary"
-                  className="text-lg md:text-xl px-10 py-5"
-                  onClick={scrollToPricing}
-                >
-                  {hero.primaryCtaLabel}
-                </CTAButton>
-                <CTAHintBadges items={['Multiplicar ROI', 'Ganhar Tempo', 'Saúde Mental']} />
-              </div>
-            </StaggerItem>
+            {hero.primaryCtaLabel && (
+              <StaggerItem className="pt-4">
+                <div className="space-y-5">
+                  <CTAButton
+                    withGlow
+                    withPulse
+                    variant="primary"
+                    className="text-lg md:text-xl px-10 py-5"
+                    onClick={scrollToPricing}
+                  >
+                    {hero.primaryCtaLabel}
+                  </CTAButton>
+                  <CTAHintBadges items={['Multiplicar ROI', 'Ganhar Tempo', 'Saúde Mental']} />
+                </div>
+              </StaggerItem>
+            )}
           </StaggerContainer>
         </div>
       </section>

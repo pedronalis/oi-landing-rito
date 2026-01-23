@@ -15,8 +15,8 @@ export interface Hero {
   eyebrow: string;
   title: string;
   subtitle: string;
-  primaryCtaLabel: string;
-  secondaryHint: string;
+  primaryCtaLabel?: string;
+  secondaryHint?: string;
   heroVideoLabel: string;
 }
 
@@ -77,7 +77,7 @@ export interface ExtraversoSection extends BaseSection {
   hint: string;
 }
 
-export type ArsenalIconType = 
+export type ArsenalIconType =
   | 'diamond'      // Produto & Oferta
   | 'quill'        // Copy & Vendas
   | 'sparkles'     // Conteúdo & Mídia
@@ -85,7 +85,7 @@ export type ArsenalIconType =
   | 'crystal-ball' // Oráculos
   | 'compass';     // Estratégia
 
-export type ArsenalCategory = 
+export type ArsenalCategory =
   | 'produto'    // Verde Brand
   | 'copy'       // Roxo Accent
   | 'conteudo'   // Amber
